@@ -7,7 +7,18 @@ module.exports = {
   },
   options: {
     autoImport: {
-      exclude: ['mapbox-gl', 'ember-mapbox-gl'],
+      exclude: ['mapbox-gl'],
+      webpack: {
+        module: {
+          rules: [
+            {
+              type: 'javascript/auto',
+              test: /\.mjs$/,
+              use: [],
+            },
+          ],
+        },
+      },
     },
     sassOptions: {
       includePaths: [
