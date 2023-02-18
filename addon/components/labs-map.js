@@ -102,11 +102,4 @@ export default mapboxGlMap.extend({
   */
   layerGroups: null,
 
-  _onLoad(map, ...args) {
-    this._super(map, ...args);
-
-    // add source for highlighted-feature
-    if (!this.get('isDestroyed')) map
-      .addSource('hovered-feature', this.get('hoveredFeatureSource'));
-  },
 });

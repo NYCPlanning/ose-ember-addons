@@ -5,7 +5,18 @@ const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 module.exports = function (defaults) {
   let app = new EmberAddon(defaults, {
     autoImport: {
-      exclude: ['mapbox-gl', 'ember-mapbox-gl'],
+      exclude: ['mapbox-gl'],
+      webpack: {
+        module: {
+          rules: [
+            {
+              type: 'javascript/auto',
+              test: /\.mjs$/,
+              use: [],
+            },
+          ],
+        },
+      },
     },
     sassOptions: {
       includePaths: [
