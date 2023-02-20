@@ -27,7 +27,7 @@
     "ember-cli-htmlbars": "^5.7.1",
     "ember-copy": "^2.0.1",
     "ember-fetch": "^8.1.2",
-    "ember-power-select": "^3.0.6",
+    "ember-power-select": "^5.0.2",
     "ember-truth-helpers": "^2.0.0",
     "mapbox-gl": ">=0.47.0",
     "nyc-planning-style-guide": "^1.0.7"
