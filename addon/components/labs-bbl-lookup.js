@@ -92,5 +92,9 @@ export default Component.extend({
       this.set('boro', option);
       this.send('validate');
     },
+
+    toggle() {
+      this.set('closed', !this.closed);
+    }
   },
 });

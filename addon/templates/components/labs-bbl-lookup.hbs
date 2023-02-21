@@ -1,4 +1,4 @@
-<span {{action (mut closed) (not closed)}} class="bbl-lookup-toggle button tiny gray text-orange expanded no-margin" role="button">
+<span {{on 'click' (action 'toggle')}} class="bbl-lookup-toggle button tiny gray text-orange expanded no-margin" role="button">
   {{#if closed}}
     <FaIcon @icon='chevron-down'/>
   {{else}}
@@ -7,7 +7,7 @@
   BBL Lookup
 </span>
 
-{{#unless closed}}
+{{#unless this.closed}}
   <form class="bbl-lookup-form" {{action "handleSubmit" on="submit"}}>
     <div class="bbl-power-select">
       <label>Borough</label>
