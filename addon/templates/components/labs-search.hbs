@@ -2,8 +2,8 @@
   @placeholder={{searchPlaceholder}}
   class='map-search-input'
   @value={{this.searchTerms}}
-  {{on 'focus-in' (action 'handleFocusIn')}}
-  {{on 'focus-out' (action 'handleFocusOut')}}
+  {{on 'focus' (action 'handleFocusIn')}}
+  {{on 'blur' (action 'handleFocusOut')}}
 />
 
 {{#if searchTerms}}
