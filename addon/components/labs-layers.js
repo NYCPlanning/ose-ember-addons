@@ -4,7 +4,6 @@ import { get } from '@ember/object';
 import turfUnion from '@turf/union';
 import ArrayProxy from '@ember/array/proxy';
 import { warn } from '@ember/debug';
-import layout from '../templates/components/labs-layers';
 
 /**
   Renders a collection of Mapbox Composer-compatible layer groups.
@@ -50,8 +49,6 @@ import layout from '../templates/components/labs-layers';
   @public
 */
 export default Component.extend({
-  layout,
-
   /**
     Reference to a instance of a MapboxGL map. Handled internally when using contextual components:
 

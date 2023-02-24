@@ -5,7 +5,6 @@ import { timeout } from 'ember-concurrency';
 import { getOwner } from '@ember/application';
 import { Promise } from 'rsvp';
 import { task } from 'ember-concurrency';
-import layout from '../templates/components/labs-search';
 
 const DEBOUNCE_MS = 100;
 
@@ -66,7 +65,6 @@ export default Component.extend({
 
   searchPlaceholder: 'Search...',
   searchTerms: '',
-  layout: layout,
   selected: 0,
   _focused: false,
 

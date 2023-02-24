@@ -1,7 +1,6 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import { htmlSafe } from '@ember/template';
-import layout from '../templates/components/labs-layers-tooltip';
 
 /**
   Renders a component when a "tooltipable" layer is hovered. 
@@ -66,8 +65,6 @@ export default Component.extend({
       pointer-events: none;
     `);
   }),
-
-  layout,
 
   /**
     Offset of tooltip div element in pixels.
