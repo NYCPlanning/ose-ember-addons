@@ -2,7 +2,6 @@ import mapboxGlMap from 'ember-mapbox-gl/components/mapbox-gl';
 import { assign } from '@ember/polyfills';
 import { get } from '@ember/object';
 import { computed } from '@ember/object';
-import layout from '../templates/components/labs-map';
 
 const highlightedCircleFeatureLayer = {
   id: 'highlighted-feature-circle',
@@ -78,8 +77,6 @@ export default mapboxGlMap.extend({
       if (mapboxStyle) assign(get(this, 'initOptions') || {}, { style: mapboxStyle });
     }
   },
-
-  layout,
 
   hoveredFeatureSource: computed('hoveredFeature', function() {
     const feature = this.get('hoveredFeature');

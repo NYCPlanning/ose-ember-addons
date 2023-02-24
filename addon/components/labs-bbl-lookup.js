@@ -1,5 +1,4 @@
 import Component from '@ember/component';
-import layout from '../templates/components/labs-bbl-lookup';
 import carto from 'labs-shared/utils/carto';
 
 export default Component.extend({
@@ -16,7 +15,6 @@ export default Component.extend({
   },
 
   classNames: ['bbl-lookup hide-for-print'],
-  layout,
 
   validBlock: false,
   validLot: false,
