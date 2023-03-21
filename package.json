@@ -1,17 +1,13 @@
 {
-  "name": "labs-shared",
+  "name": "@nycplanning/ember",
   "version": "1.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "description": "A central repository for Ember addons maintained and used by New York City Department of City Planning.",
   "keywords": [
     "ember-addon"
   ],
   "license": "MIT",
   "author": "",
-  "directories": {
-    "doc": "doc",
-    "test": "tests"
-  },
-  "repository": "https://github.com/allthesignals/labs-shared",
+  "repository": "https://github.com/NYCPlanning/ose-ember-addons",
   "scripts": {
     "build": "ember build --environment=production",
     "lint": "npm-run-all --aggregate-output --continue-on-error --parallel lint:*",
@@ -96,5 +92,5 @@
   "resolutions": {
     "**/mapbox-gl": ">=0.47.0"
   },
-  "homepage": "https://NYCPlanning.github.io/ember-mapbox-composer"
+  "homepage": "https://www.npmjs.com/package/@nycplanning/ember"
 }
