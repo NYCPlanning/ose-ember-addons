@@ -1,1 +1,1 @@
-export { default } from 'labs-shared/components/labs-layers';
+export { default } from '@nycplanning/ember/components/labs-layers';

@@ -1,1 +1,1 @@
-export { default } from 'labs-shared/utils/normalize-carto-vectors';
+export { default } from '@nycplanning/ember/utils/normalize-carto-vectors';

@@ -1,1 +1,1 @@
-export { default } from 'labs-shared/components/deprecated/layer-group-toggle';
+export { default } from '@nycplanning/ember/components/deprecated/layer-group-toggle';

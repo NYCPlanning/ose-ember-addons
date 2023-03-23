@@ -1,1 +1,1 @@
-export { default } from 'labs-shared/components/labs-ui/icons/rectangle';
+export { default } from '@nycplanning/ember/components/labs-ui/icons/rectangle';

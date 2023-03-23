@@ -1,1 +1,1 @@
-export { default } from 'labs-shared/components/deprecated/icons/line';
+export { default } from '@nycplanning/ember/components/deprecated/icons/line';

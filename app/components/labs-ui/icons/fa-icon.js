@@ -1,1 +1,1 @@
-export { default } from 'labs-shared/components/labs-ui/icons/fa-icon';
+export { default } from '@nycplanning/ember/components/labs-ui/icons/fa-icon';

@@ -1,4 +1,4 @@
-import carto from 'labs-shared/utils/carto';
+import carto from '@nycplanning/ember/utils/carto';
 import { isArray } from '@ember/array';
 import { getProperties } from '@ember/object';
 import { Promise } from 'rsvp';

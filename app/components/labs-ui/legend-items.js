@@ -1,1 +1,1 @@
-export { default } from 'labs-shared/components/labs-ui/legend-items';
+export { default } from '@nycplanning/ember/components/labs-ui/legend-items';

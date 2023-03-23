@@ -1,1 +1,1 @@
-export { default, dasherize } from 'labs-shared/helpers/dasherize';
+export { default, dasherize } from '@nycplanning/ember/helpers/dasherize';

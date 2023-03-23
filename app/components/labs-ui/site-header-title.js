@@ -1,1 +1,1 @@
-export { default } from 'labs-shared/components/labs-ui/site-header-title';
+export { default } from '@nycplanning/ember/components/labs-ui/site-header-title';

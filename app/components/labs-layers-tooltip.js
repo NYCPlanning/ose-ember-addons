@@ -1,1 +1,1 @@
-export { default } from 'labs-shared/components/labs-layers-tooltip';
+export { default } from '@nycplanning/ember/components/labs-layers-tooltip';

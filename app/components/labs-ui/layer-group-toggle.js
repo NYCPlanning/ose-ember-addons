@@ -1,1 +1,1 @@
-export { default } from 'labs-shared/components/labs-ui/layer-group-toggle';
+export { default } from '@nycplanning/ember/components/labs-ui/layer-group-toggle';

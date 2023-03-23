@@ -1,1 +1,1 @@
-export { default } from 'labs-shared/components/labs-bbl-lookup';
+export { default } from '@nycplanning/ember/components/labs-bbl-lookup';
