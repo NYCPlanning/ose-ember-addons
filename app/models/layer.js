@@ -1,1 +1,1 @@
-export { default } from 'labs-shared/models/layer';
+export { default } from '@nycplanning/ember/models/layer';

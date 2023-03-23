@@ -1,1 +1,1 @@
-export { default } from 'labs-shared/components/deprecated/site-header';
+export { default } from '@nycplanning/ember/components/deprecated/site-header';

@@ -1,1 +1,1 @@
-export { default } from 'labs-shared/components/deprecated/legend-icon';
+export { default } from '@nycplanning/ember/components/deprecated/legend-icon';

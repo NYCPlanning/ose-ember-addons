@@ -1,1 +1,1 @@
-export { default } from 'labs-shared/components/labs-ui/icon-tooltip';
+export { default } from '@nycplanning/ember/components/labs-ui/icon-tooltip';

@@ -1,5 +1,5 @@
 import Component from '@ember/component';
-import carto from 'labs-shared/utils/carto';
+import carto from '@nycplanning/ember/utils/carto';
 
 export default Component.extend({
   init() {

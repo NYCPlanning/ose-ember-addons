@@ -1,1 +1,1 @@
-export { default } from 'labs-shared/components/deprecated/icons/rectangle';
+export { default } from '@nycplanning/ember/components/deprecated/icons/rectangle';

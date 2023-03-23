@@ -1,1 +1,1 @@
-export { default } from 'labs-shared/components/needs-async';
+export { default } from '@nycplanning/ember/components/needs-async';

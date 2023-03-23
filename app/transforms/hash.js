@@ -1,1 +1,1 @@
-export { default } from 'labs-shared/transforms/hash';
+export { default } from '@nycplanning/ember/transforms/hash';

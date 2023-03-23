@@ -1,1 +1,1 @@
-export { default } from 'labs-shared/services/layer-groups';
+export { default } from '@nycplanning/ember/services/layer-groups';
