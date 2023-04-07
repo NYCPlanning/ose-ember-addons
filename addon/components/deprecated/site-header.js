@@ -14,4 +14,9 @@ export default Component.extend({
   responsiveNav: false,
 
   responsiveSize: 'large',
+
+  get betaNotice() {
+    // Preserve backwards compatibility by defaulting to turning on beta notice
+    return this.args.betaNotice || true;
+  }
 });
