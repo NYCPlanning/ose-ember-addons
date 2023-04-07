@@ -5801,6 +5801,16 @@ ember-compatibility-helpers@^1.1.1, ember-compatibility-helpers@^1.1.2, ember-co
     fs-extra "^9.1.0"
     semver "^5.4.1"
 
+ember-composable-helpers@3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/ember-composable-helpers/-/ember-composable-helpers-3.2.0.tgz#6eb03626cf21d7cdcec4b949ac202c0cef43f4c3"
+  integrity sha512-OBnwpDkeOnDBMGQ/96B7TUy3e3wR1dqmAJ8+zDQTEjWrrCztKFg2dNGzCJchN1AD1i4FS4B/9iloAnn1pPWw8w==
+  dependencies:
+    "@babel/core" "^7.0.0"
+    broccoli-funnel "2.0.1"
+    ember-cli-babel "^7.1.0"
+    resolve "^1.10.0"
+
 ember-composable-helpers@^2.1.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/ember-composable-helpers/-/ember-composable-helpers-2.4.0.tgz#024bd6a8c338cc9cdf10f1141b119b8f72de205f"
@@ -6027,13 +6037,12 @@ ember-power-select@^5.0.2:
     ember-text-measurer "^0.6.0"
     ember-truth-helpers "^2.1.0 || ^3.0.0"
 
-ember-promise-helpers@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/ember-promise-helpers/-/ember-promise-helpers-2.0.0.tgz#73eed25c9e0f3e66ca4d19f2fb7f221b61abff1c"
-  integrity sha512-ZQlzSRjCdDgGBlXHtk+LKmxOlXWKalBBZrmYlr2X/kqNf7vaVUnlKQD1T+sRzwnsZZTQwL5PKfLmSWF3hFD69g==
+ember-promise-helpers@1.0.9:
+  version "1.0.9"
+  resolved "https://registry.yarnpkg.com/ember-promise-helpers/-/ember-promise-helpers-1.0.9.tgz#4559dd4a09be1a2725eddd7146169d2d53a92e7a"
+  integrity sha512-BDcx2X28baEL0YMKSmDGQzvdyfiFSlx4Byf34hVrAw6W7VO17YYLjeXPebVBOXLA1BMWmUo0Bb2pZRZ09MQYYA==
   dependencies:
-    ember-cli-babel "^7.26.6"
-    ember-cli-htmlbars "^5.7.1"
+    ember-cli-babel "^6.16.0"
 
 ember-qunit@^5.1.4:
   version "5.1.5"
