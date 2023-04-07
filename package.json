@@ -21,15 +21,15 @@
     "test:ember": "ember test"
   },
   "dependencies": {
-    "ember-promise-helpers": "1.0.9",
-    "ember-composable-helpers": "3.2.0",
     "@turf/union": "^6.0.0",
     "ember-auto-import": "^1.11.3",
     "ember-cli-babel": "^7.26.11",
     "ember-cli-htmlbars": "^5.7.1",
+    "ember-composable-helpers": "3.2.0",
     "ember-copy": "^2.0.1",
     "ember-fetch": "^8.1.2",
     "ember-power-select": "^5.0.2",
+    "ember-promise-helpers": "1.0.9",
     "ember-truth-helpers": "^3.1.1",
     "mapbox-gl": ">=0.47.0",
     "nyc-planning-style-guide": "^1.0.7"
