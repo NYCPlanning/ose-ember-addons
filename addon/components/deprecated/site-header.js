@@ -15,6 +15,5 @@ export default Component.extend({
 
   responsiveSize: 'large',
 
-  // Preserve backwards compatibility by defaulting to turning on beta notice
-  betaNotice: function () { return this.args.betaNotice || true },
+  betaNotice: function () { return this.args.betaNotice || false },
 });
