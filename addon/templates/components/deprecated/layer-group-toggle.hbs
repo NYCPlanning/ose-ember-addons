@@ -11,20 +11,20 @@
         {{label}}
         {{#if active}}
           {{#if icon}}
-            {{labs-ui/legend-icon icon=icon}}
+            {{deprecated/legend-icon icon=icon}}
           {{/if}}
         {{/if}}
       </span>
     </div>
     <div class="cell shrink layer-group-toggle-icons">
       {{#if (and activeTooltip active)}}
-        {{labs-ui/icon-tooltip tip=activeTooltip icon=activeTooltipIcon side='left' fixedWith=true}}
+        {{deprecated/icon-tooltip tip=activeTooltip icon=activeTooltipIcon side='left' fixedWith=true}}
       {{/if}}
       {{#if infoLink}}
         <a href="{{infoLink}}" target="_blank" class="info-link"><FaIcon @icon={{infoLinkIcon}} @fixedWidth={{true}} /></a>
       {{/if}}
       {{#if tooltip}}
-        {{labs-ui/icon-tooltip tip=tooltip icon=tooltipIcon side='left' fixedWidth=true}}
+        {{deprecated/icon-tooltip tip=tooltip icon=tooltipIcon side='left' fixedWidth=true}}
       {{/if}}
     </div>
   </div>
