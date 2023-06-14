@@ -11,8 +11,7 @@ Included addons:
 - [ember-needs-async](https://www.npmjs.com/package/ember-needs-async) (A labs specific fork of
 an existing project)
 
-Installation
-------------------------------------------------------------------------------
+## Installation
 
 ```
 npm install @nycplanning/ember@[version-number]
@@ -25,7 +24,6 @@ Test against local application
 to point to the local clone of this addon repository
 - `"@nycplanning/ember": "../ose-ember-addons",`
 
-License
-------------------------------------------------------------------------------
+## License
 
 This project is licensed under the [MIT License](LICENSE.md).
