@@ -1,11 +1,11 @@
 <div class="grid-x">
   <div class="cell auto">
-    {{deprecated/legend-icon icon=item.icon}}
-    {{item.label}}
+    {{deprecated/legend-icon icon=this.item.icon}}
+    {{this.item.label}}
   </div>
   <div class="cell shrink">
-    {{#if item.tooltip}}
-      {{deprecated/icon-tooltip tip=item.tooltip side='left' fixedWidth=true}}
+    {{#if this.item.tooltip}}
+      {{deprecated/icon-tooltip tip=this.item.tooltip side='left' fixedWidth=true}}
     {{/if}}
   </div>
 </div>

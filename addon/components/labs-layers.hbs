@@ -1,34 +1,34 @@
 {{!-- We need to detect layer order so bind event to all mouse interactions--}}
 {{mapbox-gl-on "mousemove" (action "handleLayerMouseMove")
-  eventSource=map}}
+  eventSource=this.map}}
 
 {{!-- Bind layer groups" layers --}}
-{{#each layers key="style" as |layerObject|}}
+{{#each this.layers key="style" as |layerObject|}}
   {{mapbox-gl-layer
-    map=map
-    layer=layerObject.mapboxGlStyle
-    before=layerObject.before
+    map=this.map
+    layer=this.layerObject.mapboxGlStyle
+    before=this.layerObject.before
   }}
   {{!-- if the layer is hightlightable or tooltipable, bind events --}}
-  {{#if (or layerObject.highlightable layerObject.tooltipable)}}
-    {{mapbox-gl-on "mouseleave" layerObject.mapboxGlStyle.id (action "handleLayerMouseLeave")
-      eventSource=map}}
+  {{#if (or this.layerObject.highlightable this.layerObject.tooltipable)}}
+    {{mapbox-gl-on "mouseleave" this.layerObject.mapboxGlStyle.id (action "handleLayerMouseLeave")
+      eventSource=this.map}}
   {{/if}}
 
-  {{#if layerObject.clickable}}
-    {{mapbox-gl-on "click" layerObject.mapboxGlStyle.id (action "handleLayerMouseClick")
-      eventSource=map}}
+  {{#if this.layerObject.clickable}}
+    {{mapbox-gl-on "click" this.layerObject.mapboxGlStyle.id (action "handleLayerMouseClick")
+      eventSource=this.map}}
   {{/if}}
 {{/each}}
 
 {{yield (hash
-  tooltip=(if (and mousePosition hoveredFeature hoveredLayer.tooltipable)
-    (component toolTipComponent
-      feature=hoveredFeature
-      layer=hoveredLayer
-      mousePosition=mousePosition
-      top=mousePosition.y
-      left=mousePosition.x
+  tooltip=(if (and this.mousePosition this.hoveredFeature this.hoveredLayer.tooltipable)
+    (component this.toolTipComponent
+      feature=this.hoveredFeature
+      layer=this.hoveredLayer
+      mousePosition=this.mousePosition
+      top=this.mousePosition.y
+      left=this.mousePosition.x
     )
   )
 )}}
