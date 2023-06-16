@@ -1,11 +1,11 @@
 <div {{action 'toggleLayerGroupsContainer'}}
-  class="layer-groups-container-title {{unless open 'closed'}} layer-groups-container--{{dasherize title}}"
+  class="layer-groups-container-title {{unless this.open 'closed'}} layer-groups-container--{{dasherize this.title}}"
   role="button">
-  {{title}}
-  {{#if numberMenuItems}}
-    <span class="badge">{{numberMenuItems}}</span>
+  {{this.title}}
+  {{#if this.numberMenuItems}}
+    <span class="badge">{{this.numberMenuItems}}</span>
   {{/if}}
-  {{#if (and mapIsLoading open numberMenuItems)}}
+  {{#if (and this.mapIsLoading this.open this.numberMenuItems)}}
     <FaIcon @icon='spinner' class='fa-spin medium-gray' />
   {{/if}}
 </div>

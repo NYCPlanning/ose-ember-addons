@@ -1,5 +1,5 @@
 <span {{on 'click' (action 'toggle')}} class="bbl-lookup-toggle button tiny gray text-orange expanded no-margin" role="button">
-  {{#if closed}}
+  {{#if this.closed}}
     <FaIcon @icon='chevron-down'/>
   {{else}}
     <FaIcon @icon='chevron-up'/>
@@ -13,34 +13,34 @@
       <label>Borough</label>
       {{#power-select
           class="bbl-lookup--boro-select"
-          tagName=div
+          tagName="div"
           renderInPlace=true
-          options=boroOptions
+          options=this.boroOptions
           searchEnabled=false
-          selected=boro
+          selected=this.boro
           searchField='name'
           onChange=(action 'setBorocode')
           as |boro|}}
-        {{boro.name}}
+        {{this.boro.name}}
       {{/power-select}}
     </div>
     <div class="grid-x">
       <div class="cell auto block-container">
         <label>
           Block
-          {{input class="bbl-lookup--block-input" type='number' value=block min='1' max='99999' key-up=(action 'validate')}}
+          {{input class="bbl-lookup--block-input" type='number' value=this.block min='1' max='99999' key-up=(action 'validate')}}
         </label>
       </div>
       <div class="cell auto lot-container">
         <label>
           Lot
-          {{input class="bbl-lookup--lot-input" type='number' value=lot min='1' max='9999' key-up=(action 'validate')}}
+          {{input class="bbl-lookup--lot-input" type='number' value=this.lot min='1' max='9999' key-up=(action 'validate')}}
         </label>
       </div>
     </div>
-    {{#if errorMessage}}<p class="lu-red text-center text-small">{{errorMessage}}</p>{{/if}}
+    {{#if this.errorMessage}}<p class="lu-red text-center text-small">{{this.errorMessage}}</p>{{/if}}
 
-    <input type="submit" value={{submitText}} class="button small expanded no-margin {{if (or validBlock validLot) '' 'disabled'}}">
+    <input type="submit" value={{this.submitText}} class="button small expanded no-margin {{if (or this.validBlock this.validLot) '' 'disabled'}}">
   </form>
 {{/unless}}
 
