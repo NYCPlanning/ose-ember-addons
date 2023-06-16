@@ -6,7 +6,7 @@
 
 <div
   id="{{this.elementId}}"
-  class="layer-groups-container {{if isOpen "open"}} {{if this.numberMenuItems "has-active-layer-groups"}}"
+  class="layer-groups-container {{if this.isOpen "open"}} {{if this.numberMenuItems "has-active-layer-groups"}}"
   {{did-insert this.setDefaultIsOpen}}
   {{action this.setNumberMenuItems preventDefault=false}}
 >

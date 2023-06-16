@@ -1,14 +1,14 @@
 <Input type='text'
-  @placeholder={{searchPlaceholder}}
+  @placeholder={{this.searchPlaceholder}}
   class='map-search-input'
   @value={{this.searchTerms}}
   {{on 'focus' (action 'handleFocusIn')}}
   {{on 'blur' (action 'handleFocusOut')}}
 />
 
-{{#if searchTerms}}
+{{#if this.searchTerms}}
   <button class="clear-button" aria-label="Clear Search" type="button" {{action 'clear'}}>
-    {{#if (and loading (is-fulfilled loading))}}
+    {{#if (and this.loading (this.is-fulfilled this.loading))}}
       <FaIcon @icon='spinner' @spin={{true}} class="dark-gray" />
     {{else}}
       <FaIcon @icon='times' class="dark-gray" />
@@ -18,27 +18,27 @@
   <FaIcon @icon='search' class="search-icon" />
 {{/if}}
 
-<ul class="search-results no-bullet{{if (or resultsCount currResults)' has-results'}} {{if _focused 'focused'}}"
+<ul class="search-results no-bullet{{if (or this.resultsCount this.currResults)' has-results'}} {{if this._focused 'focused'}}"
   onmouseleave={{action 'handleHoverOut'}}
   {{! template-lint-disable "invalid-interactive" }}>
-  {{#each-in (group-by "typeTitle" currResults) as |type rows|}}
+  {{#each-in (group-by "typeTitle" this.currResults) as |type rows|}}
     <li>
       <h4 class="header-small results-header">{{type}}</h4>
     </li>
     {{#each rows key='label' as |result|}}
-      <li class="result {{if (eq selected result.id) 'highlighted-result'}}" {{action 'goTo' result}}
-        onmouseover={{action 'handleHoverResult' result}}
+      <li class="result {{if (eq this.selected this.result.id) 'highlighted-result'}}" {{action 'goTo' this.result}}
+        onmouseover={{action 'handleHoverResult' this.result}}
         role="button">
-        {{#if hasBlock}}
-          {{yield (hash result=result)}}
+        {{#if this.hasBlock}}
+          {{yield (hash result=this.result)}}
         {{else}}
-          {{result.label}}
+          {{this.result.label}}
         {{/if}}
       </li>
     {{/each}}
   {{/each-in}}
 </ul>
 
-{{#if (and searchTerms (not resultsCount) (is-fulfilled results))}}
+{{#if (and this.searchTerms (not this.resultsCount) (this.is-fulfilled this.results))}}
   <div class="search-results--loading">No Results Found</div>
 {{/if}}
