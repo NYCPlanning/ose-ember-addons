@@ -18,8 +18,8 @@
     mapInstance=this._loader.map
     labs-layers=(component "labs-layers"
       map=this._loader.map
-      layerGroups=layerGroups
-      hoveredFeature=hoveredFeature)
+      layerGroups=this.layerGroups
+      hoveredFeature=this.hoveredFeature)
     call=(component 'mapbox-gl-call' obj=this._loader.map)
     control=(component 'mapbox-gl-control' map=this._loader.map)
     image=(component 'mapbox-gl-image' map=this._loader.map)
