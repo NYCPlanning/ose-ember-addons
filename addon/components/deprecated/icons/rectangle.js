@@ -9,6 +9,7 @@ export default Component.extend({
 
   tagName: 'svg',
   classNames: ['legend-icon-layer', 'rectangle'],
+  attributeBindings: ['height', 'width', 'viewBox', 'preserveAspectRatio'],
 
   layout,
 
