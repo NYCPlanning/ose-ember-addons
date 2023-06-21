@@ -6,17 +6,17 @@
 {{#each this.layers key="style" as |layerObject|}}
   {{mapbox-gl-layer
     map=this.map
-    layer=this.layerObject.mapboxGlStyle
-    before=this.layerObject.before
+    layer=layerObject.mapboxGlStyle
+    before=layerObject.before
   }}
   {{!-- if the layer is hightlightable or tooltipable, bind events --}}
-  {{#if (or this.layerObject.highlightable this.layerObject.tooltipable)}}
-    {{mapbox-gl-on "mouseleave" this.layerObject.mapboxGlStyle.id (action "handleLayerMouseLeave")
+  {{#if (or layerObject.highlightable layerObject.tooltipable)}}
+    {{mapbox-gl-on "mouseleave" layerObject.mapboxGlStyle.id (action "handleLayerMouseLeave")
       eventSource=this.map}}
   {{/if}}
 
-  {{#if this.layerObject.clickable}}
-    {{mapbox-gl-on "click" this.layerObject.mapboxGlStyle.id (action "handleLayerMouseClick")
+  {{#if layerObject.clickable}}
+    {{mapbox-gl-on "click" layerObject.mapboxGlStyle.id (action "handleLayerMouseClick")
       eventSource=this.map}}
   {{/if}}
 {{/each}}
