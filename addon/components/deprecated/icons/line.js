@@ -9,6 +9,7 @@ export default Component.extend({
 
   classNames: ['legend-icon-layer', 'line'],
   tagName: 'svg',
+  attributeBindings: ['height', 'width', 'viewBox', 'preserveAspectRatio'],
   layout,
 
   svgOptions: computed('options', function() {
