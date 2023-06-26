@@ -83,6 +83,27 @@ export default Model.extend({
   }),
 
   /**
+    Computed property for getting the largest minzoom among this layer-group's layers.
+    Useful for showing warnings when layers are hidden at lower zoom levels.
+    Defaults to 0 if none of the layers specify a minzoom.
+
+    @property largestMinZoom
+    @type Number
+  */
+  largestMinZoom: computed('layers', {
+    get() {
+      const layers = this.get("layers")
+      const allMinzooms = layers.map((layer) => {
+        if (layer.style) {
+          return layer.style.minzoom;
+        }
+        return 0;
+      }).filter(zoom => !!zoom);
+      return allMinzooms.length ? Math.max(...allMinzooms) : 0;
+    }
+  }),
+
+  /**
     This method finds a related layer and overwrites its paint object
 
     @method setPaintForLayer
