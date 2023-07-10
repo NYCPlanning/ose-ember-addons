@@ -24,8 +24,7 @@ export default Model.extend({
 
     // determine which is the first occurring layer
     // for testing, should check that a related layer group exists
-    if (this.get('layerGroup') && !this.get('layerGroup._firstOccurringLayer')) {
-      this.set('layerGroup._firstOccurringLayer', this.get('id'));
+    if (this.get('layerGroup')) {
       this.set('position', 1);
     }
 
