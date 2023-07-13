@@ -8,6 +8,7 @@ module.exports = function (environment) {
     locationType: 'auto',
     host: 'http://localhost:4200',
     EmberENV: {
+      EXTEND_PROTOTYPES: false,
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
         // e.g. EMBER_NATIVE_DECORATOR_SUPPORT: true
