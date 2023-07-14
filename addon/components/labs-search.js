@@ -1,5 +1,4 @@
 import Component from '@ember/component';
-import fetch from 'fetch';
 import { computed } from '@ember/object'; // eslint-disable-line
 import { timeout } from 'ember-concurrency';
 import { getOwner } from '@ember/application';

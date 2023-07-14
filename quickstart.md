@@ -53,7 +53,6 @@ This guide will help you get started with Ember Mapbox Composer. After completio
 1. Set up `adapters/application.js` to query to the Layers API:
   ```js
   import DS from 'ember-data';
-  import fetch from 'fetch';
   import config from '../config/environment';
 
   const { host } = config;
