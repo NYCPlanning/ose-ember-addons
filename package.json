@@ -34,7 +34,7 @@
     "ember-tooltips": "^3.6.0",
     "ember-truth-helpers": "^3.1.1",
     "mapbox-gl": "^1.0.0",
-    "nyc-planning-style-guide": "https://github.com/NYCPlanning/nyc-planning-style-guide#tyler-fix-division-syntax"
+    "nyc-planning-style-guide": "2.0.0-0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
