@@ -11285,10 +11285,10 @@ number-is-nan@^1.0.0:
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
   integrity sha512-4jbtZXNAsfZbAHiiqjLPBiCl16dES1zI4Hpzzxw61Tk+loF+sBDBKx1ICKKKwIqQ7M0mFn1TmkN7euSncWgHiQ==
 
-nyc-planning-style-guide@2.0.0-0:
-  version "2.0.0-0"
-  resolved "https://registry.yarnpkg.com/nyc-planning-style-guide/-/nyc-planning-style-guide-2.0.0-0.tgz#412686eac17d64c0b22ecac126c738f683d25fff"
-  integrity sha512-nN9nKSj6ygJBnbuFjy44rPD4pVK0KtmH42n36bSph9T6B6swnzB6NDXvlrpbyKgndMcx+ks4zXPCXKqFtMSz6w==
+nyc-planning-style-guide@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/nyc-planning-style-guide/-/nyc-planning-style-guide-2.0.0.tgz#a07c45400b66d7ff0e43595de3655800b283cfab"
+  integrity sha512-cGhOcMkPa2+6lOftYZGzAk6s3q2P8iD/JHqj97fK+LQCWQ2GgPl85rb706ce3XVBJT6D7yXhpkJX2eti+w0UiQ==
   dependencies:
     foundation-sites "^6.7.5"
     jquery "^3.6.0"
