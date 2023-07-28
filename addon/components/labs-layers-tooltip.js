@@ -55,9 +55,9 @@ import { htmlSafe } from '@ember/template';
   @public
 */
 export default Component.extend({
-  style: computed('mousePosition', function() {
-    const { y: top, x: left } = this.get('mousePosition');
-    const offset = this.get('offset');
+  style: computed('mousePosition', 'offset', function () {
+    const { y: top, x: left } = this.mousePosition;
+    const offset = this.offset;
 
     return htmlSafe(`
       top: ${top + offset}px; 

@@ -15,5 +15,7 @@ export default Component.extend({
 
   responsiveSize: 'large',
 
-  betaNotice: function () { return this.args.betaNotice || false },
+  betaNotice: function () {
+    return this.args.betaNotice || false;
+  },
 });

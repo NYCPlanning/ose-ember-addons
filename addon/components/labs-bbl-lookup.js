@@ -35,28 +35,37 @@ export default Component.extend({
 
   actions: {
     validate() {
-      const boro = this.get('boro');
-      const block = this.get('block');
-      const lot = this.get('lot');
+      const boro = this.boro;
+      const block = this.block;
+      const lot = this.lot;
 
-      const validBoro = (boro !== '');
-      const validBlock = ((block !== '') && (parseInt(block, 10) < 100000) && (parseInt(block, 10) > 0));
-      const validLot = ((lot !== '') && (parseInt(lot, 10) < 10000) && (parseInt(lot, 10) > 0));
+      const validBoro = boro !== '';
+      const validBlock =
+        block !== '' && parseInt(block, 10) < 100000 && parseInt(block, 10) > 0;
+      const validLot =
+        lot !== '' && parseInt(lot, 10) < 10000 && parseInt(lot, 10) > 0;
 
       this.set('validBlock', validBoro && validBlock);
       this.set('validLot', validBoro && validBlock && validLot);
 
-      const submitText = (validBlock && !validLot) ? 'Go to Block' : 'Go to Lot';
+      const submitText = validBlock && !validLot ? 'Go to Block' : 'Go to Lot';
       this.set('submitText', submitText);
     },
 
     handleSubmit() {
-      const { boro: { code }, block, lot } = this.getProperties('boro', 'block', 'lot');
-      const validBlock = this.get('validBlock');
-      const validLot = this.get('validLot');
+      const {
+        boro: { code },
+        block,
+        lot,
+      } = this;
+      const validBlock = this.validBlock;
+      const validLot = this.validLot;
 
       if (validBlock && !validLot) {
-        const SQL = `SELECT the_geom FROM dof_dtm_block_centroids WHERE block= ${parseInt(block, 10)} AND borocode = '${code}'`;
+        const SQL = `SELECT the_geom FROM dof_dtm_block_centroids WHERE block= ${parseInt(
+          block,
+          10
+        )} AND borocode = '${code}'`;
         carto.SQL(SQL, 'geojson').then((response) => {
           if (response.features[0]) {
             this.set('errorMessage', '');
@@ -69,7 +78,10 @@ export default Component.extend({
           }
         });
       } else {
-        const SQL = `SELECT st_centroid(the_geom) as the_geom, bbl FROM dcp_mappluto WHERE block= ${parseInt(block, 10)} AND lot = ${parseInt(lot, 10)} AND borocode = ${code}`;
+        const SQL = `SELECT st_centroid(the_geom) as the_geom, bbl FROM dcp_mappluto WHERE block= ${parseInt(
+          block,
+          10
+        )} AND lot = ${parseInt(lot, 10)} AND borocode = ${code}`;
         carto.SQL(SQL, 'geojson').then((response) => {
           if (response.features[0]) {
             this.set('errorMessage', '');
@@ -78,7 +90,11 @@ export default Component.extend({
             });
             const bblFeature = response.features[0];
 
-            this.onSuccess(bblFeature.geometry.coordinates, 18, bblFeature.properties.bbl);
+            this.onSuccess(
+              bblFeature.geometry.coordinates,
+              18,
+              bblFeature.properties.bbl
+            );
           } else {
             this.set('errorMessage', 'The Lot does not exist.');
           }
@@ -93,6 +109,6 @@ export default Component.extend({
 
     toggle() {
       this.set('closed', !this.closed);
-    }
+    },
   },
 });

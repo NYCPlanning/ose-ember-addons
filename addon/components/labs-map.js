@@ -23,7 +23,6 @@ const highlightedCircleFeatureLayer = {
   },
 };
 
-
 const highlightedLineFeatureLayer = {
   id: 'highlighted-feature-line',
   source: 'hovered-feature',
@@ -67,19 +66,17 @@ export default mapboxGlMap.extend({
     this._super(...args);
 
     // if layerGroups are passed to the map, use the style from that
-    if (this.get('layerGroups')) {
+    if (this.layerGroups) {
       const {
-        meta: {
-          mapboxStyle
-        }
-      } = this.get('layerGroups') || {};
+        meta: { mapboxStyle },
+      } = this.layerGroups || {};
 
-      if (mapboxStyle) assign(get(this, 'initOptions') || {}, { style: mapboxStyle });
+      if (mapboxStyle) assign(this.initOptions || {}, { style: mapboxStyle });
     }
   },
 
-  hoveredFeatureSource: computed('hoveredFeature', function() {
-    const feature = this.get('hoveredFeature');
+  hoveredFeatureSource: computed('hoveredFeature', function () {
+    const feature = this.hoveredFeature;
 
     return {
       type: 'geojson',
@@ -98,5 +95,4 @@ export default mapboxGlMap.extend({
     @type DS.RecordArray
   */
   layerGroups: null,
-
 });

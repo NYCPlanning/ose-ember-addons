@@ -5,7 +5,7 @@ export default Component.extend({
   init(...args) {
     this._super(...args);
 
-    this.get('didInit')(this);
+    this.didInit(this);
 
     this.set('icon', []);
   },
@@ -36,7 +36,8 @@ export default Component.extend({
   willDestroyHook() {},
 
   willDestroy() {
-    this.get('willDestroyHook')(this);
+    this._super(...arguments);
+    this.willDestroyHook(this);
   },
 
   actions: {

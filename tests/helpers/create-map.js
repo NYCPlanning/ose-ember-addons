@@ -9,13 +9,15 @@ export default function createMap() {
   return new Promise((resolve) => {
     const map = new MapboxGl.Map({
       container: document.createElement('div'),
-      style: Config['mapbox-gl'].map.style
+      style: Config['mapbox-gl'].map.style,
     });
 
     map.style.once('data', () => resolve(map));
 
     const onErr = (data) => {
-      QUnit.onUnhandledRejection((data && data.error) || data || 'Empty error event from mapbox-gl-js');
+      QUnit.onUnhandledRejection(
+        (data && data.error) || data || 'Empty error event from mapbox-gl-js'
+      );
     };
 
     map.style.on('error', onErr);

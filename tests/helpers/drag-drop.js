@@ -14,7 +14,7 @@ async function drop(dragSelector, dragEvent, options) {
 
   let dropElement = await find(dropSelector);
   if (!dropElement) {
-    throw(`There are no drop targets by the given selector: '${dropSelector}'`);
+    throw `There are no drop targets by the given selector: '${dropSelector}'`;
   }
 
   await dragOver(dropSelector, dragOverMoves);

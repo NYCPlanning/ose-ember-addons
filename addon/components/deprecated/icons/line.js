@@ -12,11 +12,11 @@ export default Component.extend({
   attributeBindings: ['height', 'width', 'viewBox', 'preserveAspectRatio'],
   layout,
 
-  svgOptions: computed('options', function() {
+  svgOptions: computed('options', function () {
     const defaultOptions = {
-      stroke: 'SteelBlue'
+      stroke: 'SteelBlue',
     };
-    const options = this.get('options'); // options should be an object
+    const options = this.options; // options should be an object
 
     return Object.assign(defaultOptions, options);
   }),
@@ -27,10 +27,11 @@ export default Component.extend({
   preserveAspectRatio: 'xMinYMid',
 
   didInsertElement() {
+    this._super(...arguments);
     const svgPath = this.element.querySelector('path');
-    const svgOptions = this.get('svgOptions');
+    const svgOptions = this.svgOptions;
     Object.entries(svgOptions).forEach(([attr, value]) => {
       svgPath.setAttribute(attr, value);
     });
-  }
+  },
 });
