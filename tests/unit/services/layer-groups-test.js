@@ -14,7 +14,7 @@ module('Unit | Service | layer-groups', function (hooks) {
   test('it lists visibleLayerGroups when none loaded', function (assert) {
     let service = this.owner.lookup('service:layer-groups');
 
-    assert.equal(service.get('visibleLayerGroups').length, 0);
+    assert.strictEqual(service.get('visibleLayerGroups').length, 0);
   });
 
   test('can initialize with initializeObservers', async function (assert) {
@@ -88,7 +88,7 @@ module('Unit | Service | layer-groups', function (hooks) {
     const layerGroups = store.peekAll('layer-group');
 
     service.initializeObservers(layerGroups);
-    assert.equal(service.get('visibleLayerGroups').length, 2);
+    assert.strictEqual(service.get('visibleLayerGroups').length, 2);
   });
 
   test('it updates state based on visibility', async function (assert) {
@@ -129,13 +129,13 @@ module('Unit | Service | layer-groups', function (hooks) {
     const layerGroups = store.peekAll('layer-group');
 
     service.initializeObservers(layerGroups);
-    assert.equal(service.get('visibleLayerGroups').length, 2);
+    assert.strictEqual(service.get('visibleLayerGroups').length, 2);
 
     await run(() => {
       layerGroups.get('firstObject').set('visible', false);
     });
 
-    assert.equal(service.get('visibleLayerGroups').length, 1);
+    assert.strictEqual(service.get('visibleLayerGroups').length, 1);
   });
 
   test('it updates substate based on filter, selection', async function (assert) {
@@ -189,8 +189,8 @@ module('Unit | Service | layer-groups', function (hooks) {
     const layerGroups = store.peekAll('layer-group');
 
     service.initializeObservers(layerGroups);
-    assert.equal(service.get('visibleLayerGroups').length, 2);
+    assert.strictEqual(service.get('visibleLayerGroups').length, 2);
 
-    assert.notStrictEqual(typeof service.get('visibleLayerGroups'), 'string');
+    assert.notstrictEqual((typeof service.get('visibleLayerGroups'), 'string');
   });
 });

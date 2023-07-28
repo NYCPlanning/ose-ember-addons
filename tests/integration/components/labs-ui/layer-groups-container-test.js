@@ -34,7 +34,7 @@ module('Integration | Component | layer-groups-container', function (hooks) {
       '.layer-groups-container-title'
     ).textContent.trim();
 
-    assert.equal(title, 'Foo');
+    assert.strictEqual(title, 'Foo');
   });
 
   test('it yields the block', async function (assert) {
@@ -45,7 +45,7 @@ module('Integration | Component | layer-groups-container', function (hooks) {
       '.layer-groups-container-content'
     ).textContent.trim();
 
-    assert.equal(layerGroupsContainerContent, 'Bar');
+    assert.strictEqual(layerGroupsContainerContent, 'Bar');
   });
 
   skip('it shows a count of active children', async function () {});

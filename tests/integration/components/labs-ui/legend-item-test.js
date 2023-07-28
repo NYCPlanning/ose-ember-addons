@@ -31,6 +31,6 @@ module('Integration | Component | labs-ui/legend-item', function (hooks) {
 
     await render(hbs`{{labs-ui/legend-item item=item}}`);
 
-    assert.equal(this.element.textContent.trim(), 'Foo');
+    assert.strictEqual(this.element.textContent.trim(), 'Foo');
   });
 });

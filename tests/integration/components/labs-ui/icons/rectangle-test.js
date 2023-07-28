@@ -12,6 +12,6 @@ module('Integration | Component | labs-ui/icons/rectangle', function (hooks) {
 
     await render(hbs`{{labs-ui/icons/rectangle}}`);
 
-    assert.equal(this.element.textContent.trim(), '');
+    assert.strictEqual(this.element.textContent.trim(), '');
   });
 });
