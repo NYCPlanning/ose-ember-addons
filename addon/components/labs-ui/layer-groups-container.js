@@ -25,7 +25,9 @@ export default class LayerGroupsContainerComponent extends Component {
 
   @action
   setNumberMenuItems() {
-    const groups = document.getElementById(this.elementId).getElementsByClassName('active');
+    const groups = document
+      .getElementById(this.elementId)
+      .getElementsByClassName('active');
     this.numberMenuItems = groups.length;
   }
 

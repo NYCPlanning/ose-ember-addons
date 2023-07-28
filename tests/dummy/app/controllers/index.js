@@ -3,10 +3,13 @@ import Controller from '@ember/controller';
 import { computed } from '@ember/object';
 
 // defaults
-const center = [-73.92, 40.7], zoom = 10, bearing = 0, pitch = 0;
+const center = [-73.92, 40.7],
+  zoom = 10,
+  bearing = 0,
+  pitch = 0;
 
 export default Controller.extend({
-  initMapOptions: computed('model.meta', function() {
+  initMapOptions: computed('model.meta', function () {
     return {
       center,
       zoom,
@@ -22,6 +25,6 @@ export default Controller.extend({
     chooseOption(option) {
       this.set('selectedOption', option);
     },
-  }
+  },
 });
 // END-SNIPPET

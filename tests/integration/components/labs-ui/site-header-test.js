@@ -3,10 +3,10 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render, find } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | labs-ui/site-header', function(hooks) {
+module('Integration | Component | labs-ui/site-header', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders', async function(assert) {
+  test('it renders', async function (assert) {
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.set('myAction', function(val) { ... });
 
@@ -33,7 +33,7 @@ module('Integration | Component | labs-ui/site-header', function(hooks) {
 
     // The DCP logo renders
     const dcpLinkIcon = await find('a.dcp-link img');
-    assert.equal(!!dcpLinkIcon, true);
+    assert.true(!!dcpLinkIcon);
 
     // The {{site-header-title}} contextual component renders
     const siteTitle = find('.site-title').textContent.trim();

@@ -1,4 +1,4 @@
-import Model from 'ember-data/model';
+import Model from '@ember-data/model';
 import { computed } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import { copy } from 'ember-copy';
@@ -24,7 +24,7 @@ export default Model.extend({
 
     // determine which is the first occurring layer
     // for testing, should check that a related layer group exists
-    if (this.get('layerGroup')) {
+    if (this.layerGroup) {
       this.set('position', 1);
     }
 
@@ -35,8 +35,8 @@ export default Model.extend({
   delegateVisibility() {
     const visible = this.get('layerGroup.visible');
 
-    if (this.get('layerVisibilityType') === 'singleton') {
-      if (this.get('position') === 1 && this.get('layerGroup.visible')) {
+    if (this.layerVisibilityType === 'singleton') {
+      if (this.position === 1 && this.get('layerGroup.visible')) {
         next(() => this.set('visibility', true));
       } else {
         next(() => this.set('visibility', false));
@@ -85,16 +85,13 @@ export default Model.extend({
   layout: alias('style.layout'),
   layerVisibilityType: alias('layerGroup.layerVisibilityType'),
 
-
   /**
     Computed alias that returns a newly built mapbox layer object. Necessary to maintain state bindings.
     @property mapboxGlStyle
     @type Object
     @private
   */
-  mapboxGlStyle: computed('style.{paint,layout,filter}', function() {
-    return this.get('style');
-  }),
+  mapboxGlStyle: computed.reads('style'),
 
   /**
     Getter and setter for filter. Array structure should follow Mapbox's [Expression](https://www.mapbox.com/mapbox-gl-js/style-spec/#expressions) syntax.
@@ -106,7 +103,7 @@ export default Model.extend({
       return this.get('style.filter');
     },
     set(key, filter) {
-      this.set('style', assign({}, this.get('style'), { filter }));
+      this.set('style', assign({}, this.style, { filter }));
     },
   }),
 
@@ -122,8 +119,8 @@ export default Model.extend({
     },
     set(key, value) {
       const parentVisibilityState = value && this.get('layerGroup.visible');
-      const visibility = (parentVisibilityState ? 'visible' : 'none');
-      const layout = copy(this.get('layout'));
+      const visibility = parentVisibilityState ? 'visible' : 'none';
+      const layout = copy(this.layout);
 
       if (layout) {
         set(layout, 'visibility', visibility);

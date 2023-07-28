@@ -15,7 +15,9 @@ export default Component.extend({
       host = 'https://search-api-production.herokuapp.com',
       route = 'search',
       helpers = ['geosearch', 'city-map-street-search', 'city-map-alteration'],
-    } = getOwner(this).resolveRegistration('config:environment')['labs-search'] || {};
+    } = getOwner(this).resolveRegistration('config:environment')[
+      'labs-search'
+    ] || {};
 
     this.setProperties({
       typeTitleLookup: {
@@ -25,7 +27,7 @@ export default Component.extend({
       host: host,
       route: route,
       helpers: helpers,
-    })
+    });
   },
 
   classNames: ['labs-geosearch'],
@@ -38,23 +40,25 @@ export default Component.extend({
 
   onClear() {},
 
-  results: computed('searchTerms', function() {
-    const searchTerms = this.get('searchTerms');
+  results: computed('debouncedResults', 'searchTerms', function () {
+    const searchTerms = this.searchTerms;
 
-    return this.get('debouncedResults').perform(searchTerms);
+    return this.debouncedResults.perform(searchTerms);
   }),
 
-  resultsCount: computed('results.value', function() {
+  resultsCount: computed('results.value', function () {
     const results = this.get('results.value');
     if (results) return results.length;
     return 0;
   }),
 
-  endpoint: computed('searchTerms', function() {
-    const searchTerms = this.get('searchTerms');
-    const host = this.get('host');
-    const route = this.get('route');
-    const helpers = this.get('helpers').map(string => `helpers[]=${string}&`).join('');
+  endpoint: computed('helpers', 'host', 'route', 'searchTerms', function () {
+    const searchTerms = this.searchTerms;
+    const host = this.host;
+    const route = this.route;
+    const helpers = this.helpers
+      .map((string) => `helpers[]=${string}&`)
+      .join('');
 
     return `${host}/${route}?${helpers}q=${searchTerms}`;
   }),
@@ -72,18 +76,22 @@ export default Component.extend({
   debouncedResults: task(function* (searchTerms) {
     if (searchTerms.length < 2) return;
     yield timeout(DEBOUNCE_MS);
-    const URL = this.get('endpoint');
+    const URL = this.endpoint;
 
-    this.set('loading', new Promise(function(resolve) {
-      setTimeout(resolve, 500);
-    }));
+    this.set(
+      'loading',
+      new Promise(function (resolve) {
+        setTimeout(resolve, 500);
+      })
+    );
 
     const raw = yield fetch(URL);
     const resultList = yield raw.json();
     const mergedWithTitles = resultList.map((result, index) => {
       const mutatedResult = result;
       mutatedResult.id = index;
-      mutatedResult.typeTitle = this.get(`typeTitleLookup.${result.type}`) || 'Result';
+      mutatedResult.typeTitle =
+        this.get(`typeTitleLookup.${result.type}`) || 'Result';
       return mutatedResult;
     });
 
@@ -94,7 +102,7 @@ export default Component.extend({
   }).keepLatest(),
 
   keyPress(event) {
-    const selected = this.get('selected');
+    const selected = this.selected;
     const { keyCode } = event;
 
     // enter
@@ -108,12 +116,16 @@ export default Component.extend({
   },
 
   keyUp(event) {
-    const selected = this.get('selected');
-    const resultsCount = this.get('resultsCount');
+    const selected = this.selected;
+    const resultsCount = this.resultsCount;
     const { keyCode } = event;
 
-    const incSelected = () => { this.set('selected', selected + 1); };
-    const decSelected = () => { this.set('selected', selected - 1); };
+    const incSelected = () => {
+      this.set('selected', selected + 1);
+    };
+    const decSelected = () => {
+      this.set('selected', selected - 1);
+    };
 
     if ([38, 40, 27].includes(keyCode)) {
       const results = this.get('results.value');
@@ -143,7 +155,7 @@ export default Component.extend({
   actions: {
     clear() {
       this.set('searchTerms', '');
-      this.get('onClear')();
+      this.onClear();
     },
 
     goTo(result) {
@@ -151,17 +163,17 @@ export default Component.extend({
       const event = document.createEvent('HTMLEvents');
       event.initEvent('blur', true, false);
       el.dispatchEvent(event);
-  
+
       result.searchQuery = this.get('searchTerms');
-      
+
       this.setProperties({
         selected: 0,
         searchTerms: result.label,
         _focused: false,
         currResults: [],
       });
-  
-      this.get('onSelect')(result);
+
+      this.onSelect(result);
     },
 
     handleFocusIn() {
@@ -169,7 +181,7 @@ export default Component.extend({
     },
 
     handleHoverResult(result) {
-      this.get('onHoverResult')(result);
+      this.onHoverResult(result);
     },
 
     handleFocusOut() {
@@ -177,7 +189,7 @@ export default Component.extend({
     },
 
     handleHoverOut() {
-      this.get('onHoverOut')();
+      this.onHoverOut();
     },
   },
 });

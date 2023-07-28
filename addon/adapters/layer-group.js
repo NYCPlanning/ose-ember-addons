@@ -9,9 +9,10 @@ export default class LayerGroupAdapter extends JSONAPIAdapter {
   constructor(...args) {
     super(...args);
 
-    const {
-      host = DEFAULT_HOST,
-    } = getOwner(this).resolveRegistration('config:environment')['ember-mapbox-composer'] || {};
+    const { host = DEFAULT_HOST } =
+      getOwner(this).resolveRegistration('config:environment')[
+        'ember-mapbox-composer'
+      ] || {};
 
     this.set('host', host);
     this.set('namespace', 'v1');
@@ -26,6 +27,6 @@ export default class LayerGroupAdapter extends JSONAPIAdapter {
         'Content-Type': 'application/json; charset=utf-8',
       },
       body: JSON.stringify(query),
-    }).then(blob => blob.json());
+    }).then((blob) => blob.json());
   }
 }

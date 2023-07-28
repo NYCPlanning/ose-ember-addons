@@ -1,1 +1,4 @@
-export { default, initialize } from '@nycplanning/ember/initializers/consumer-environment';
+export {
+  default,
+  initialize,
+} from '@nycplanning/ember/initializers/consumer-environment';
