@@ -3,13 +3,15 @@ import { setupRenderingTest } from 'ember-qunit';
 import { render, find } from '@ember/test-helpers';
 import hbs from 'htmlbars-inline-precompile';
 
-module('Integration | Component | labs-ui/icon-tooltip', function(hooks) {
+module('Integration | Component | labs-ui/icon-tooltip', function (hooks) {
   setupRenderingTest(hooks);
 
-  test('it renders an icon', async function(assert) {
-    await render(hbs`{{labs-ui/icon-tooltip icon="map-marked-alt" tip="This is the tooltip text."}}`);
+  test('it renders an icon', async function (assert) {
+    await render(
+      hbs`{{labs-ui/icon-tooltip icon="map-marked-alt" tip="This is the tooltip text."}}`
+    );
 
     const icon = find('.fa-map-location-dot');
-    assert.equal(!!icon, true);
+    assert.true(!!icon);
   });
 });

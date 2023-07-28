@@ -1,4 +1,4 @@
-import Model from 'ember-data/model';
+import Model from '@ember-data/model';
 import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { alias, mapBy } from '@ember/object/computed';
@@ -20,7 +20,10 @@ export default Model.extend({
     this._super(...args);
 
     // update registry for aggregate state service
-    this.set('layerGroupService.layerGroupRegistry', this.get('layerGroupService.layerGroupRegistry').concat(this));
+    this.set(
+      'layerGroupService.layerGroupRegistry',
+      this.layerGroupService.layerGroupRegistry.concat(this)
+    );
   },
 
   layers: hasMany('layer', { async: false }),
@@ -74,12 +77,12 @@ export default Model.extend({
   // singleton only
   selected: computed('layers.@each.visibility', {
     get() {
-      return this.get('layers').findBy('visibility', true);
+      return this.layers.findBy('visibility', true);
     },
     set(key, id) {
-      this.get('layers').setEach('visibility', false);
-      this.get('layers').findBy('id', id).set('visibility', true);
-    }
+      this.layers.setEach('visibility', false);
+      this.layers.findBy('id', id).set('visibility', true);
+    },
   }),
 
   /**
@@ -92,15 +95,17 @@ export default Model.extend({
   */
   largestMinZoom: computed('layers', {
     get() {
-      const layers = this.get("layers")
-      const allMinzooms = layers.map((layer) => {
-        if (layer.style) {
-          return layer.style.minzoom;
-        }
-        return 0;
-      }).filter(zoom => !!zoom);
+      const layers = this.layers;
+      const allMinzooms = layers
+        .map((layer) => {
+          if (layer.style) {
+            return layer.style.minzoom;
+          }
+          return 0;
+        })
+        .filter((zoom) => !!zoom);
       return allMinzooms.length ? Math.max(...allMinzooms) : 0;
-    }
+    },
   }),
 
   /**
@@ -143,12 +148,12 @@ export default Model.extend({
     @param {String|Number} id ID of the layer-group's layer
   */
   showOneLayer(id) {
-    this.get('layers').forEach((layer) => {
+    this.layers.forEach((layer) => {
       if (layer.get('id') === id) {
-        layer.set('layout', {}/* visible */);
+        layer.set('layout', {} /* visible */);
       }
 
-      layer.set('layout', {}/* not visible */);
+      layer.set('layout', {} /* not visible */);
     });
   },
 
@@ -162,7 +167,7 @@ export default Model.extend({
     @param {Object} value Value of Layer to override
   */
   _mutateLayerProperty(property, layerID, value) {
-    const foundLayer = this.get('layers').findBy('id', layerID);
+    const foundLayer = this.layers.findBy('id', layerID);
     if (!foundLayer) throw Error('No related layer with this ID.');
 
     foundLayer.set(property, value);

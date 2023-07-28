@@ -8,11 +8,13 @@ export default class RectangleComponent extends Component {
   preserveAspectRatio = 'xMinYMid';
 
   get options() {
-    return this.args.options || {
-      'stroke': 'SteelBlue',
-      'fill': 'rgba(70, 130, 180, 0.5)',
-      'stroke-linejoin': 'round',
-    };
+    return (
+      this.args.options || {
+        stroke: 'SteelBlue',
+        fill: 'rgba(70, 130, 180, 0.5)',
+        'stroke-linejoin': 'round',
+      }
+    );
   }
 
   @action

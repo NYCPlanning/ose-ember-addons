@@ -13,7 +13,7 @@ export default Component.extend({
 
   options() {},
 
-  spanStyle: computed('options.color', function() {
+  spanStyle: computed('options.color', function () {
     return htmlSafe(this.options.color ? `color: ${this.options.color}` : '');
   }),
 });

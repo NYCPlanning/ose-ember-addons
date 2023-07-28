@@ -12,8 +12,8 @@ export default Component.extend({
   classNames: ['legend-icon'],
   layout,
 
-  iconType: computed(function() {
+  iconType: computed('icon.type', function () {
     const type = this.get('icon.type');
-    return (type === 'fa-icon') ? 'fa-layers' : type;
+    return type === 'fa-icon' ? 'fa-layers' : type;
   }),
 });

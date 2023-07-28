@@ -16,8 +16,8 @@ export default Component.extend({
   classNames: ['layer-groups-container'],
   classNameBindings: ['open', 'numberMenuItems:has-active-layer-groups'],
 
-  numberMenuItems: computed('layerGroupToggleItems.@each.active', function() {
-    const items = this.get('layerGroupToggleItems');
+  numberMenuItems: computed('layerGroupToggleItems.@each.active', function () {
+    const items = this.layerGroupToggleItems;
 
     const activeStates = items.mapBy('active');
 
@@ -43,12 +43,12 @@ export default Component.extend({
     },
     registerChild(componentContext) {
       next(() => {
-        this.get('layerGroupToggleItems').pushObject(componentContext);
+        this.layerGroupToggleItems.pushObject(componentContext);
       });
     },
     unregisterChild(componentContext) {
       next(() => {
-        this.get('layerGroupToggleItems').removeObject(componentContext);
+        this.layerGroupToggleItems.removeObject(componentContext);
       });
     },
   },
