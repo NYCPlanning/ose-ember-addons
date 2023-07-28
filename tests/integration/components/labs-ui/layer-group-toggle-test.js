@@ -24,7 +24,7 @@ module('Integration | Component | layer-group-toggle', function (hooks) {
       hbs`<LabsUi::LayerGroupToggle @label="Foo" @active={{true}} >Bar</LabsUi::LayerGroupToggle>`
     );
     const content = find('.layer-group-toggle-content').textContent.trim();
-    assert.equal(content, 'Bar');
+    assert.strictEqual(content, 'Bar');
   });
 
   test('it shows a title', async function (assert) {
@@ -32,7 +32,7 @@ module('Integration | Component | layer-group-toggle', function (hooks) {
     const title = await find(
       '.layer-group-toggle-header .layer-group-toggle-label'
     ).textContent.trim();
-    assert.equal(title, 'Foo');
+    assert.strictEqual(title, 'Foo');
   });
 
   test('accepts a for property to lookup an object', async function (assert) {
@@ -40,6 +40,6 @@ module('Integration | Component | layer-group-toggle', function (hooks) {
     const title = await find(
       '.layer-group-toggle-header .layer-group-toggle-label'
     ).textContent.trim();
-    assert.equal(title, 'Foo');
+    assert.strictEqual(title, 'Foo');
   });
 });

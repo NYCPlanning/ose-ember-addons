@@ -116,7 +116,7 @@ module(
 
       await render(hbs`{{labs-layers layerGroups=model.layerGroups map=map}}`);
 
-      assert.equal(
+      assert.strictEqual(
         this.map.getPaintProperty(this.layer.get('style.id'), 'circle-color'),
         'white',
         'paint property was set'
@@ -130,7 +130,7 @@ module(
       //   this.layer.set('paint', { 'circle-color': 'black' });
       // });
 
-      // assert.equal(
+      // assert.strictEqual(
       //   this.map.getLayer(this.layer.get('style.id')).getPaintProperty('circle-color'),
       //   'black',
       //   'paint property was updated',
@@ -181,7 +181,7 @@ module(
 
       await render(hbs`{{labs-layers layerGroups=model.layerGroups map=map}}`);
 
-      assert.equal(
+      assert.strictEqual(
         this.map.getPaintProperty(this.layer.get('style.id'), 'circle-color'),
         'white',
         'paint property was set'
@@ -215,7 +215,7 @@ module(
         })
       );
 
-      assert.equal(
+      assert.strictEqual(
         this.map.getPaintProperty(this.layer.get('style.id'), 'circle-color'),
         'black',
         'paint property was updated from server'

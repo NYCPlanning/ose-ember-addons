@@ -12,7 +12,7 @@ module('Integration | Component | labs-ui/site-header-title', function (hooks) {
 
     await render(hbs`{{labs-ui/site-header-title}}`);
 
-    assert.equal(this.element.textContent.trim(), '');
+    assert.strictEqual(this.element.textContent.trim(), '');
 
     // Template block usage:
     await render(hbs`
@@ -21,6 +21,6 @@ module('Integration | Component | labs-ui/site-header-title', function (hooks) {
       {{/labs-ui/site-header-title}}
     `);
 
-    assert.equal(this.element.textContent.trim(), 'template block text');
+    assert.strictEqual(this.element.textContent.trim(), 'template block text');
   });
 });
