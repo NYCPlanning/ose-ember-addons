@@ -3,7 +3,7 @@
 ## Installation
 
 * `git clone <repository-url>`
-* `cd nycplanning-ember`
+* `cd ose-ember-addons`
 * `yarn install`
 
 ## Linting
