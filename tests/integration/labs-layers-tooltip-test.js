@@ -18,7 +18,7 @@ module('Integration | Component | labs-layers-tooltip', function (hooks) {
       hbs`{{labs-layers-tooltip mousePosition=mousePosition top=1 left=1}}`
     );
 
-    assert.equal(this.element.textContent.trim(), '');
+    assert.strictEqual(this.element.textContent.trim(), '');
 
     // Template block usage:
     await render(hbs`
@@ -27,7 +27,7 @@ module('Integration | Component | labs-layers-tooltip', function (hooks) {
       {{/labs-layers-tooltip}}
     `);
 
-    assert.equal(this.element.textContent.trim(), 'template block text');
+    assert.strictEqual(this.element.textContent.trim(), 'template block text');
   });
 
   test('it generates correct markup', async function (assert) {
@@ -43,7 +43,7 @@ module('Integration | Component | labs-layers-tooltip', function (hooks) {
     );
 
     const tooltip = await find('.map-tooltip');
-    assert.equal(getComputedStyle(tooltip)['top'], '21px');
-    assert.equal(getComputedStyle(tooltip)['left'], '21px');
+    assert.strictEqual(getComputedStyle(tooltip)['top'], '21px');
+    assert.strictEqual(getComputedStyle(tooltip)['left'], '21px');
   });
 });

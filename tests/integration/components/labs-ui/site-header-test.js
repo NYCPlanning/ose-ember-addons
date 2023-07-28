@@ -29,7 +29,7 @@ module('Integration | Component | labs-ui/site-header', function (hooks) {
 
     // The beta notice renders
     const betaNotice = find('.labs-beta-notice').textContent.trim();
-    assert.equal(betaNotice, 'A beta project of NYC Planning Labs');
+    assert.strictEqual(betaNotice, 'A beta project of NYC Planning Labs');
 
     // The DCP logo renders
     const dcpLinkIcon = await find('a.dcp-link img');
@@ -37,10 +37,10 @@ module('Integration | Component | labs-ui/site-header', function (hooks) {
 
     // The {{site-header-title}} contextual component renders
     const siteTitle = find('.site-title').textContent.trim();
-    assert.equal(siteTitle, 'Foo');
+    assert.strictEqual(siteTitle, 'Foo');
 
     // The {{site-header-nav}} contextual component renders
     const siteNav = find('.bar').textContent.trim();
-    assert.equal(siteNav, 'Bar');
+    assert.strictEqual(siteNav, 'Bar');
   });
 });

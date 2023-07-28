@@ -12,6 +12,6 @@ module('Integration | Component | labs-ui/icons/fa-icon', function (hooks) {
 
     await render(hbs`{{labs-ui/icons/fa-icon}}`);
 
-    assert.equal(this.element.textContent.trim(), '');
+    assert.strictEqual(this.element.textContent.trim(), '');
   });
 });
