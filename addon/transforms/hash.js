@@ -1,7 +1,5 @@
-import DS from 'ember-data';
+import { Transform } from 'ember-data';
 import EmberObject from '@ember/object';
-
-const { Transform } = DS;
 
 export default class extends Transform {
   deserialize(serialized) {
