@@ -1,6 +1,6 @@
 {{!-- template-lint-disable no-invalid-interactive  --}}
 
-<header class="site-header" role="banner">
+<header class="site-header">
   {{#if @betaNotice}}
     <a href="https://planninglabs.nyc/" class="labs-beta-notice hide-for-print">A beta project of NYC Planning Labs</a>
   {{else}}
@@ -16,7 +16,7 @@
 
     {{#if @responsiveNav}}
       <div class="cell auto hide-for-{{@responsiveSize}} text-right">
-        <button {{action (mut this.closed) (not this.closed)}} class="responsive-nav-toggler hide-for-print">Menu</button>
+        <button class="responsive-nav-toggler hide-for-print" type="button" {{action (mut this.closed) (not this.closed)}}>Menu</button>
       </div>
     {{/if}}
 
