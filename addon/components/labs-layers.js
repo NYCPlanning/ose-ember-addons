@@ -1,6 +1,5 @@
 import Component from '@ember/component';
-import { computed } from '@ember/object';
-import { get } from '@ember/object';
+import { computed, get } from '@ember/object';
 import turfUnion from '@turf/union';
 import ArrayProxy from '@ember/array/proxy';
 import { warn } from '@ember/debug';
