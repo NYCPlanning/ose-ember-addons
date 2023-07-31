@@ -191,6 +191,6 @@ module('Unit | Service | layer-groups', function (hooks) {
     service.initializeObservers(layerGroups);
     assert.strictEqual(service.get('visibleLayerGroups').length, 2);
 
-    assert.notEqual((typeof service.get('visibleLayerGroups'), 'string'));
+    assert.notStrictEqual(typeof service.get('visibleLayerGroups'), 'string');
   });
 });
