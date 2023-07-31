@@ -1,8 +1,6 @@
 import JSONAPIAdapter from '@ember-data/adapter/json-api';
 import { getOwner } from '@ember/application';
 
-const { JSONAPIAdapter } = DS;
-
 const DEFAULT_HOST = 'https://layers-api.planninglabs.nyc';
 
 export default class LayerGroupAdapter extends JSONAPIAdapter {

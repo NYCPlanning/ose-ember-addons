@@ -1,8 +1,7 @@
-import Model from '@ember-data/model';
+import Model, { hasMany, attr } from '@ember-data/model';
 import { computed } from '@ember/object';
 import { inject as service } from '@ember/service';
 import { alias, mapBy } from '@ember/object/computed';
-import { hasMany, attr } from 'ember-data';
 
 /**
   Model for layer groups.

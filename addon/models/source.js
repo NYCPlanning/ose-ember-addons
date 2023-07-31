@@ -1,4 +1,4 @@
-import { Model, attr } from 'ember-data';
+import Model, { attr } from '@ember-data/model';
 
 /**
   Model for related sources
