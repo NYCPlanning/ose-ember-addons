@@ -22,7 +22,7 @@ module('Integration | Component | legend-icon', function (hooks) {
       ],
     });
 
-    await render(hbs`{{labs-ui/legend-icon icon=icon}}`);
+    await render(hbs`<Deprecated::LegendIcon @icon={{this.icon}} />`);
     const icon = await find('svg + svg');
     assert.true(!!icon);
   });

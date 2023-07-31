@@ -15,17 +15,15 @@ module('Integration | Component | labs-layers-tooltip', function (hooks) {
     });
 
     await render(
-      hbs`{{labs-layers-tooltip mousePosition=mousePosition top=1 left=1}}`
+      hbs`<LabsLayersTooltip @mousePosition={{this.mousePosition}} @top={{1}} @left={{1}} />`
     );
 
     assert.strictEqual(this.element.textContent.trim(), '');
 
     // Template block usage:
-    await render(hbs`
-      {{#labs-layers-tooltip mousePosition=mousePosition top=1 left=1}}
-        template block text
-      {{/labs-layers-tooltip}}
-    `);
+    await render(
+      hbs`<LabsLayersTooltip @mousePosition={{this.mousePosition}} @top={{1}} @left={{1}}>template block text</LabsLayersTooltip>`
+    );
 
     assert.strictEqual(this.element.textContent.trim(), 'template block text');
   });
@@ -39,7 +37,7 @@ module('Integration | Component | labs-layers-tooltip', function (hooks) {
     });
 
     await render(
-      hbs`{{labs-layers-tooltip mousePosition=mousePosition top=1 left=1}}`
+      hbs`<LabsLayersTooltip @mousePosition={{this.mousePosition}} @top={{1}} @left={{1}} />`
     );
 
     const tooltip = await find('.map-tooltip');
