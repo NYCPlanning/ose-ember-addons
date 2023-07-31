@@ -31,6 +31,11 @@ module.exports = {
     'ember/no-get': 'warn',
     'ember/no-actions-hash': 'warn',
     'ember/require-tagless-components': 'warn',
+    'ember/no-observers': 'warn',
+    'ember/classic-decorator-no-classic-methods': 'warn',
+    'ember/classic-decorator-hooks': 'warn',
+    'ember/no-component-lifecycle-hooks': 'warn',
+    'ember/no-empty-glimmer-component-classes': 'warn',
   },
   overrides: [
     // node files
