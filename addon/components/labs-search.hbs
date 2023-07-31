@@ -1,10 +1,12 @@
-<Input type='text'
+<Input @type='text'
   placeholder={{this.searchPlaceholder}}
   class='map-search-input'
+  id="map-search-input"
   @value={{this.searchTerms}}
   {{on 'focus' (action 'handleFocusIn')}}
   {{on 'blur' (action 'handleFocusOut')}}
 />
+<label class="show-for-sr" for="map-search-input">Search the map</label>
 
 {{#if this.searchTerms}}
   <button class="clear-button" aria-label="Clear Search" type="button" {{action 'clear'}}>
@@ -19,8 +21,7 @@
 {{/if}}
 
 <ul class="search-results no-bullet{{if (or this.resultsCount this.currResults)' has-results'}} {{if this._focused 'focused'}}"
-  onmouseleave={{action 'handleHoverOut'}}
-  {{! template-lint-disable "invalid-interactive" }}>
+  onmouseleave={{action 'handleHoverOut'}}>
   {{#each-in (group-by "typeTitle" this.currResults) as |type rows|}}
     <li>
       <h4 class="header-small results-header">{{type}}</h4>

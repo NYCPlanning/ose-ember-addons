@@ -40,7 +40,7 @@
     </div>
     {{#if this.errorMessage}}<p class="lu-red text-center text-small">{{this.errorMessage}}</p>{{/if}}
 
-    <input type="submit" value={{this.submitText}} class="button small expanded no-margin {{if (or this.validBlock this.validLot) '' 'disabled'}}">
+    <button type="submit" class="button small expanded no-margin {{if (or this.validBlock this.validLot) '' 'disabled'}}">{{this.submitText}}</button>
   </form>
 {{/unless}}
 
