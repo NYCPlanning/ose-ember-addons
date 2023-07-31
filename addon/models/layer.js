@@ -99,7 +99,9 @@ export default Model.extend({
       return this.get('style.filter');
     },
     set(key, filter) {
-      this.set('style', assign({}, this.style, { filter }));
+      const newFilter = assign({}, this.style, { filter });
+      this.set('style', newFilter);
+      return newFilter;
     },
   }),
 
