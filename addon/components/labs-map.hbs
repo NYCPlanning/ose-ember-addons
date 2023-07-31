@@ -3,7 +3,7 @@
   <div class="labs-map-loaded"></div>
 
   {{!-- Highlighted Layer Handling --}}
-  {{#mapbox-gl-source sourceId='hovered-feature' options=this.hoveredFeatureSource map=this._loader.map as |layer|}}
+  {{#mapbox-gl-source sourceId='hovered-feature' options=this.hoveredFeatureSource map=this._loader.map}}
     {{mapbox-gl-layer
       map=this._loader.map
       layer=this.highlightedLineFeatureLayer
