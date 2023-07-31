@@ -12,7 +12,7 @@ module('Integration | Component | labs-ui/site-header', function (hooks) {
 
     // Template block usage:
     await render(hbs`
-      <LabsUi::SiteHeader
+      <Deprecated::SiteHeader
         @responsiveNav={{true}}
         @responsiveSize="medium"
         @betaNotice={{true}}
@@ -24,7 +24,7 @@ module('Integration | Component | labs-ui/site-header', function (hooks) {
         <banner.nav>
           <span class="bar">Bar</span>
         </banner.nav>
-      </LabsUi::SiteHeader>
+      </Deprecated::SiteHeader>
     `);
 
     // The beta notice renders

@@ -1,6 +1,6 @@
 import Model, { attr, belongsTo } from '@ember-data/model';
 import { computed, set } from '@ember/object';
-import { alias } from '@ember/object/computed';
+import { alias, reads } from '@ember/object/computed';
 import { copy } from 'ember-copy';
 import { assign } from '@ember/polyfills';
 import { next } from '@ember/runloop';
@@ -87,7 +87,7 @@ export default Model.extend({
     @type Object
     @private
   */
-  mapboxGlStyle: computed.reads('style'),
+  mapboxGlStyle: reads('style'),
 
   /**
     Getter and setter for filter. Array structure should follow Mapbox's [Expression](https://www.mapbox.com/mapbox-gl-js/style-spec/#expressions) syntax.

@@ -22,7 +22,7 @@ module('Unit | Service | layer-groups', function (hooks) {
     let service = this.owner.lookup('service:layer-groups');
 
     await run(() => {
-      store.pushPayload('layer-group', {
+      store.push({
         data: [
           {
             type: 'layer-group',
@@ -58,7 +58,7 @@ module('Unit | Service | layer-groups', function (hooks) {
     let store = this.owner.lookup('service:store');
 
     await run(() => {
-      store.pushPayload('layer-group', {
+      store.push({
         data: [
           {
             type: 'layer-group',
@@ -86,7 +86,6 @@ module('Unit | Service | layer-groups', function (hooks) {
     });
 
     const layerGroups = store.peekAll('layer-group');
-
     service.initializeObservers(layerGroups);
     assert.strictEqual(service.get('visibleLayerGroups').length, 2);
   });
@@ -96,7 +95,7 @@ module('Unit | Service | layer-groups', function (hooks) {
     let store = this.owner.lookup('service:store');
 
     await run(() => {
-      store.pushPayload('layer-group', {
+      store.push({
         data: [
           {
             type: 'layer-group',
@@ -143,7 +142,7 @@ module('Unit | Service | layer-groups', function (hooks) {
     let store = this.owner.lookup('service:store');
 
     await run(() => {
-      store.pushPayload('layer-group', {
+      store.push({
         data: [
           {
             type: 'layer-group',
