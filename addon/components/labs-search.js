@@ -1,9 +1,8 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object'; // eslint-disable-line
-import { timeout } from 'ember-concurrency';
+import { timeout, task } from 'ember-concurrency';
 import { getOwner } from '@ember/application';
 import { Promise } from 'rsvp';
-import { task } from 'ember-concurrency';
 
 const DEBOUNCE_MS = 100;
 

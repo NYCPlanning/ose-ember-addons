@@ -1,11 +1,9 @@
-import Model from '@ember-data/model';
-import { computed } from '@ember/object';
+import Model, { attr, belongsTo } from '@ember-data/model';
+import { computed, set } from '@ember/object';
 import { alias } from '@ember/object/computed';
 import { copy } from 'ember-copy';
-import { set } from '@ember/object';
 import { assign } from '@ember/polyfills';
 import { next } from '@ember/runloop';
-import { attr, belongsTo } from 'ember-data';
 
 /**
   Model for individual layers. Belongs to a layer-group. May be called individually for state changes.
