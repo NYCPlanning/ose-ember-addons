@@ -25,7 +25,13 @@ module.exports = {
   env: {
     browser: true,
   },
-  rules: {},
+  rules: {
+    'ember/no-classic-components': 'warn',
+    'ember/no-classic-classes': 'warn',
+    'ember/no-get': 'warn',
+    'ember/no-actions-hash': 'warn',
+    'ember/require-tagless-components': 'warn',
+  },
   overrides: [
     // node files
     {

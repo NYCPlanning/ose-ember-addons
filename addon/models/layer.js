@@ -5,9 +5,7 @@ import { copy } from 'ember-copy';
 import { set } from '@ember/object';
 import { assign } from '@ember/polyfills';
 import { next } from '@ember/runloop';
-import DS from 'ember-data';
-
-const { attr, belongsTo } = DS;
+import { attr, belongsTo } from 'ember-data';
 
 /**
   Model for individual layers. Belongs to a layer-group. May be called individually for state changes.
