@@ -21,7 +21,7 @@
         {{deprecated/icon-tooltip tip=this.activeTooltip icon=this.activeTooltipIcon side='left' fixedWith=true}}
       {{/if}}
       {{#if this.infoLink}}
-        <a href="{{this.infoLink}}" target="_blank" class="info-link"><FaIcon @icon={{this.infoLinkIcon}} @fixedWidth={{true}} /></a>
+        <a href="{{this.infoLink}}" target="_blank" class="info-link" rel="noopener noreferrer"><FaIcon @icon={{this.infoLinkIcon}} @fixedWidth={{true}} /></a>
       {{/if}}
       {{#if this.tooltip}}
         {{deprecated/icon-tooltip tip=this.tooltip icon=this.tooltipIcon side='left' fixedWidth=true}}
