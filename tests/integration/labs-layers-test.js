@@ -114,7 +114,9 @@ module(
         ],
       });
 
-      await render(hbs`{{labs-layers layerGroups=model.layerGroups map=map}}`);
+      await render(
+        hbs`<LabsLayers @layerGroups={{this.model.layerGroups}} @map={{this.map}} />`
+      );
 
       assert.strictEqual(
         this.map.getPaintProperty(this.layer.get('style.id'), 'circle-color'),
@@ -141,7 +143,7 @@ module(
       let store = this.owner.lookup('service:store');
 
       await run(() =>
-        store.pushPayload('layer', {
+        store.push({
           data: {
             type: 'layer',
             id: 'test-layer',
@@ -179,7 +181,9 @@ module(
         ],
       });
 
-      await render(hbs`{{labs-layers layerGroups=model.layerGroups map=map}}`);
+      await render(
+        hbs`<LabsLayers @layerGroups={{this.model.layerGroups}} @map={{this.map}} />`
+      );
 
       assert.strictEqual(
         this.map.getPaintProperty(this.layer.get('style.id'), 'circle-color'),
@@ -188,7 +192,7 @@ module(
       );
 
       await run(() =>
-        store.pushPayload('layer', {
+        store.push({
           data: {
             type: 'layer',
             id: 'test-layer',

@@ -25,7 +25,7 @@ module('Integration | Component | labs-ui/legend-items', function (hooks) {
       },
     ]);
 
-    await render(hbs`{{labs-ui/legend-items items=items}}`);
+    await render(hbs`<Deprecated::LegendItems @items={{this.items}} />`);
 
     assert.strictEqual(this.element.textContent.trim(), 'Foo Bar');
   });
