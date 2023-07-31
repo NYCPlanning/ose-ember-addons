@@ -1,4 +1,4 @@
-import DS from 'ember-data';
+import JSONAPIAdapter from '@ember-data/adapter/json-api';
 import { getOwner } from '@ember/application';
 
 const { JSONAPIAdapter } = DS;

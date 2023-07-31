@@ -1,6 +1,5 @@
 import mapboxGlMap from 'ember-mapbox-gl/components/mapbox-gl';
 import { assign } from '@ember/polyfills';
-import { get } from '@ember/object';
 import { computed } from '@ember/object';
 
 const highlightedCircleFeatureLayer = {

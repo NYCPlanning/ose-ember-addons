@@ -1,6 +1,4 @@
-import DS from 'ember-data';
-
-const { Model, attr } = DS;
+import { Model, attr } from 'ember-data';
 
 /**
   Model for related sources
