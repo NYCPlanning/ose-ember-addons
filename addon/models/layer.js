@@ -87,7 +87,9 @@ export default Model.extend({
     @type Object
     @private
   */
-  mapboxGlStyle: reads('style'),
+  mapboxGlStyle: computed('style.{paint,layout,filter}', function () {
+    return this.get('style');
+  }),
 
   /**
     Getter and setter for filter. Array structure should follow Mapbox's [Expression](https://www.mapbox.com/mapbox-gl-js/style-spec/#expressions) syntax.
