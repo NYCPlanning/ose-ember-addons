@@ -1,6 +1,6 @@
 {
   "name": "@nycplanning/ember",
-  "version": "3.0.0-5",
+  "version": "3.0.0-6",
   "description": "A central repository for Ember addons maintained and used by New York City Department of City Planning.",
   "keywords": [
     "ember-addon"
