@@ -36,6 +36,7 @@ module.exports = {
     'ember/classic-decorator-hooks': 'warn',
     'ember/no-component-lifecycle-hooks': 'warn',
     'ember/no-empty-glimmer-component-classes': 'warn',
+    'ember/require-computed-macros': 'warn',
   },
   overrides: [
     // node files
