@@ -20,7 +20,12 @@ export default Model.extend({
 
     // determine which is the first occurring layer
     // for testing, should check that a related layer group exists
-    if (this.layerGroup) {
+    if (
+      this.get('layerVisibilityType') === 'singleton' &&
+      this.get('layerGroup') &&
+      !this.get('layerGroup._firstOccurringLayer')
+    ) {
+      this.set('layerGroup._firstOccurringLayer', this.get('id'));
       this.set('position', 1);
     }
 
