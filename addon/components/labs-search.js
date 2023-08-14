@@ -153,6 +153,8 @@ export default Component.extend({
       event.initEvent('blur', true, false);
       el.dispatchEvent(event);
   
+      result.searchQuery = this.get('searchTerms');
+      
       this.setProperties({
         selected: 0,
         searchTerms: result.label,
