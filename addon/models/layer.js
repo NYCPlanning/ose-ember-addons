@@ -1,6 +1,6 @@
 import Model, { attr, belongsTo } from '@ember-data/model';
 import { computed, set } from '@ember/object';
-import { alias, reads } from '@ember/object/computed';
+import { alias } from '@ember/object/computed';
 import { copy } from 'ember-copy';
 import { assign } from '@ember/polyfills';
 import { next } from '@ember/runloop';
