@@ -65,7 +65,7 @@ export default Component.extend({
         const SQL = `SELECT the_geom FROM dof_dtm_block_centroids WHERE block= ${parseInt(
           block,
           10
-        )} AND borocode = '${code}'`;
+        )} AND boro = '${code}'`;
         carto.SQL(SQL, 'geojson').then((response) => {
           if (response.features[0]) {
             this.set('errorMessage', '');
