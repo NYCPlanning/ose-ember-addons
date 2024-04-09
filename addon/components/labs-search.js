@@ -62,6 +62,11 @@ export default Component.extend({
     return `${host}/${route}?${helpers}q=${searchTerms}`;
   }),
 
+  host: 'https://search-api-production.herokuapp.com',
+  route: 'search',
+
+  useSearchHistory: false,
+
   searchHistory: window.localStorage["search-history"] ? JSON.parse(window.localStorage["search-history"]) : [],
 
   searchPlaceholder: 'Search...',
@@ -202,9 +207,11 @@ export default Component.extend({
     },
 
     addSearchToSearchHistory(result) {
-      const h = [...this.searchHistory].filter((search) => search.label !== result.label);
-      this.set('searchHistory', [{...result, typeTitle: "Search History"}, ...h]);
-      this.send('saveSearchHistory');
+      if(this.useSearchHistory) {
+        const h = [...this.searchHistory].filter((search) => search.label !== result.label);
+        this.set('searchHistory', [{...result, typeTitle: "Search History"}, ...h]);
+        this.send('saveSearchHistory');
+      }
     },
 
     removeSearchFromSearchHistory(result) {
@@ -220,8 +227,10 @@ export default Component.extend({
     },
 
     filterSearchHistory(query) {
-      const h = [...this.searchHistory].filter((search) => search.label.toUpperCase().includes(query.toUpperCase())).slice(0, 5);
-      this.set('filteredSearchHistory', h)
+      if(this.useSearchHistory) {
+        const h = [...this.searchHistory].filter((search) => search.label.toUpperCase().includes(query.toUpperCase())).slice(0, 5);
+        this.set('filteredSearchHistory', h)
+      }
     },   
   },
 });
