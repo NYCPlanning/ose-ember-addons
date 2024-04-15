@@ -65,6 +65,10 @@ export default Component.extend({
   host: 'https://search-api-production.herokuapp.com',
   route: 'search',
 
+  useSearchHistory: false,
+
+  searchHistory: window.localStorage["search-history"] ? JSON.parse(window.localStorage["search-history"]) : [],
+
   searchPlaceholder: 'Search...',
   searchTerms: '',
   selected: 0,
@@ -72,8 +76,14 @@ export default Component.extend({
 
   loading: null,
 
+  filteredSearchHistory: [],
+
   debouncedResults: task(function* (searchTerms) {
-    if (searchTerms.length < 2) return;
+    this.send('filterSearchHistory', searchTerms)
+    if (searchTerms.length < 2) {
+      this.set('currResults', this.filteredSearchHistory);
+      return;
+    }
     yield timeout(DEBOUNCE_MS);
     const URL = this.endpoint;
 
@@ -94,7 +104,7 @@ export default Component.extend({
       return mutatedResult;
     });
 
-    this.set('currResults', mergedWithTitles);
+    this.set('currResults', this.filteredSearchHistory.concat(mergedWithTitles));
     this.set('loading', null);
 
     return mergedWithTitles;
@@ -158,6 +168,7 @@ export default Component.extend({
     },
 
     goTo(result) {
+      this.send('addSearchToSearchHistory', result)
       const el = document.querySelector('.map-search-input');
       const event = document.createEvent('HTMLEvents');
       event.initEvent('blur', true, false);
@@ -190,5 +201,36 @@ export default Component.extend({
     handleHoverOut() {
       this.onHoverOut();
     },
+
+    saveSearchHistory() {
+      window.localStorage["search-history"] = JSON.stringify(this.searchHistory.slice(0, 100))
+    },
+
+    addSearchToSearchHistory(result) {
+      if(this.useSearchHistory) {
+        const h = [...this.searchHistory].filter((search) => search.label !== result.label);
+        this.set('searchHistory', [{...result, typeTitle: "Search History"}, ...h]);
+        this.send('saveSearchHistory');
+      }
+    },
+
+    removeSearchFromSearchHistory(result) {
+      this.set('searchHistory', [...this.searchHistory].filter((search) => search.label !== result.label));
+      this.send('saveSearchHistory');
+      this.set('currResults', [...this.currResults].filter((curr) => curr.label !== result.label));
+    },
+
+    clearSearchHistory() {
+      this.set('searchHistory', []);
+      this.send('saveSearchHistory');
+      this.set('currResults', [...this.currResults].filter((search) => search.typeTitle !== "Search History"))
+    },
+
+    filterSearchHistory(query) {
+      if(this.useSearchHistory) {
+        const h = [...this.searchHistory].filter((search) => search.label.toUpperCase().includes(query.toUpperCase())).slice(0, 5);
+        this.set('filteredSearchHistory', h)
+      }
+    },   
   },
 });

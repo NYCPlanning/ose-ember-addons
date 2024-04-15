@@ -5,6 +5,7 @@
   @value={{this.searchTerms}}
   {{on 'focus' (action 'handleFocusIn')}}
   {{on 'blur' (action 'handleFocusOut')}}
+  autocomplete="off"
 />
 <label class="show-for-sr" for="map-search-input">Search the map</label>
 
@@ -24,18 +25,37 @@
   onmouseleave={{action 'handleHoverOut'}}>
   {{#each-in (group-by "typeTitle" this.currResults) as |type rows|}}
     <li>
-      <h4 class="header-small results-header">{{type}}</h4>
+      
+      {{#if (eq type "Search History")}}
+        <div  style="display: flex; flex-direction: row; justify-content: space-between;">
+          <h4 class="header-small results-header">{{type}}</h4>
+          <span {{action 'clearSearchHistory'}} style="color: #ae561f; cursor: pointer;">
+            Clear History
+          </span>
+        </div>
+
+      {{else}}
+        <h4 class="header-small results-header">{{type}}</h4>
+      {{/if}}
     </li>
     {{#each rows key='label' as |result|}}
-      <li class="result {{if (eq this.selected result.id) 'highlighted-result'}}" {{action 'goTo' result}}
+      <li class="result {{if (eq this.selected result.id) 'highlighted-result'}}" 
         onmouseover={{action 'handleHoverResult' result}}
-        role="button">
-        {{#if this.hasBlock}}
-          {{yield (hash result=result)}}
-        {{else}}
-          {{result.label}}
+        role="button" style="display: flex; flex-direction: row; justify-content: space-between;">
+        <div {{action 'goTo' result}} style="flex-grow: 1;">
+          {{#if this.hasBlock}}
+            {{yield (hash result=result)}}
+          {{else}}
+            {{result.label}}
+          {{/if}}
+        </div>
+        {{#if (eq type "Search History")}}
+          <span {{action 'removeSearchFromSearchHistory' result}} style="width: 12px;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z" fill="red" /></svg>  
+          </span>
         {{/if}}
       </li>
+      
     {{/each}}
   {{/each-in}}
 </ul>
