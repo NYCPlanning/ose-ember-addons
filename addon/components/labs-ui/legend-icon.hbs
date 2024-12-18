@@ -17,6 +17,10 @@
         <LabsUi::Icons::rectangle @options={{icon-layer}} />
       {{/if}}
 
+      {{#if (eq @icon.type "square-hatch")}}
+        <LabsUi::Icons::square-hatch @options={{icon-layer}} />
+      {{/if}}
+
       {{#if (eq @icon.type "fa-icon")}}
         <LabsUi::Icons::fa-icon @options={{icon-layer}} />
       {{/if}}
