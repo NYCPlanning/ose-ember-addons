@@ -3,17 +3,17 @@ import { htmlSafe } from '@ember/template';
 
 export default class SquareHatchComponent extends Component {
   get backgroundColor() {
-    const { backgroundColor } = this.agrs.options;
+    const { backgroundColor } = this.args.options;
     return backgroundColor !== undefined ? htmlSafe(backgroundColor) :  "rgba(0, 197, 255, 0.2)";
   }
 
   get hatchColor() {
-    const { hatchColor } = this.agrs.options;
+    const { hatchColor } = this.args.options;
     return hatchColor !== undefined ? htmlSafe(hatchColor) : "rgba(0, 0, 0, 1)";
   }
 
   get hatchWidth() {
-    const { hatchWidth } = this.agrs.options;
+    const { hatchWidth } = this.args.options;
     return hatchWidth !== undefined ? htmlSafe(hatchWidth) : "0.5";
   }
 }
