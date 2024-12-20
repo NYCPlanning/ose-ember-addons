@@ -4,7 +4,7 @@ import { htmlSafe } from '@ember/template';
 export default class SquareHatchComponent extends Component {
   get backgroundColor() {
     const { backgroundColor } = this.args.options;
-    return backgroundColor !== undefined ? htmlSafe(backgroundColor) :  "rgba(0, 197, 255, 0.2)";
+    return backgroundColor !== undefined ? htmlSafe(backgroundColor) :  "rgba(255, 255, 255, 1)";
   }
 
   get hatchColor() {
