@@ -14,6 +14,6 @@ export default class SquareHatchComponent extends Component {
 
   get hatchWidth() {
     const { hatchWidth } = this.args.options;
-    return hatchWidth !== undefined ? htmlSafe(hatchWidth) : "0.5";
+    return hatchWidth !== undefined ? htmlSafe(hatchWidth) : "1";
   }
 }
