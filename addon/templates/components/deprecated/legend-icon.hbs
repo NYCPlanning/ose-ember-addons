@@ -2,15 +2,15 @@
   {{#each this.icon.layers as |icon-layer|}}
 
     {{#if (eq this.icon.type 'line')}}
-      {{deprecated/icons/line options=icon-layer}}
+      <Deprecated::Icons::Line @options={{icon-layer}} />
     {{/if}}
 
     {{#if (eq this.icon.type 'rectangle')}}
-      {{deprecated/icons/rectangle options=icon-layer}}
+      <Deprecated::Icons::Rectangle @options={{icon-layer}} />
     {{/if}}
 
     {{#if (eq this.icon.type 'fa-icon')}}
-      {{deprecated/icons/fa-icon options=icon-layer}}
+      <Deprecated::Icons::FaIcon @options={{icon-layer}} />
     {{/if}}
 
   {{/each}}

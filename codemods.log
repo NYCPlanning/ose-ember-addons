@@ -1,0 +1,10 @@
+2026-04-01T15:23:15.435Z [warn] WARNING: {{yield}} was not converted as it has positional parameters which can't be automatically converted. Source: addon/templates/components/deprecated/site-header.hbs
+2026-04-01T15:23:15.437Z [warn] WARNING: {{yield}} was not converted as it has positional parameters which can't be automatically converted. Source: addon/templates/components/deprecated/site-header.hbs
+2026-04-01T15:23:15.437Z [warn] WARNING: {{yield}} was not converted as it has positional parameters which can't be automatically converted. Source: addon/templates/components/deprecated/site-header.hbs
+2026-04-01T15:23:15.596Z [warn] WARNING: {{page-title}} was not converted as it has positional parameters which can't be automatically converted. Source: tests/dummy/app/templates/application.hbs
+2026-04-01T15:23:15.722Z [warn] WARNING: {{fn}} was not converted as it has positional parameters which can't be automatically converted. Source: tests/dummy/app/templates/index.hbs
+2026-04-01T15:23:15.821Z [warn] WARNING: {{dasherize}} was not converted as it has positional parameters which can't be automatically converted. Source: addon/templates/components/deprecated/layer-groups-container.hbs
+2026-04-01T15:23:15.823Z [warn] WARNING: {{yield}} was not converted as it has positional parameters which can't be automatically converted. Source: addon/templates/components/deprecated/layer-groups-container.hbs
+2026-04-01T15:23:15.945Z [warn] WARNING: {{dasherize}} was not converted as it has positional parameters which can't be automatically converted. Source: addon/templates/components/deprecated/layer-group-toggle.hbs
+2026-04-01T15:23:15.947Z [warn] WARNING: {{dasherize}} was not converted as it has positional parameters which can't be automatically converted. Source: addon/templates/components/deprecated/layer-group-toggle.hbs
+2026-04-01T15:23:15.947Z [warn] WARNING: {{dasherize}} was not converted as it has positional parameters which can't be automatically converted. Source: addon/templates/components/deprecated/layer-group-toggle.hbs
