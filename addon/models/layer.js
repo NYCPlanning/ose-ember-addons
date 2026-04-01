@@ -1,9 +1,8 @@
 import Model, { attr, belongsTo } from '@ember-data/model';
 import { computed, set } from '@ember/object';
-import { alias } from '@ember/object/computed';
+import { alias, reads } from '@ember/object/computed';
 import { copy } from 'ember-copy';
 import { assign } from '@ember/polyfills';
-import { next } from '@ember/runloop';
 
 /**
   Model for individual layers. Belongs to a layer-group. May be called individually for state changes.
@@ -21,11 +20,11 @@ export default Model.extend({
     // determine which is the first occurring layer
     // for testing, should check that a related layer group exists
     if (
-      this.get('layerVisibilityType') === 'singleton' &&
-      this.get('layerGroup') &&
+      this.layerVisibilityType === 'singleton' &&
+      this.layerGroup &&
       !this.get('layerGroup._firstOccurringLayer')
     ) {
-      this.set('layerGroup._firstOccurringLayer', this.get('id'));
+      this.set('layerGroup._firstOccurringLayer', this.id);
       this.set('position', 1);
     }
 
@@ -37,13 +36,13 @@ export default Model.extend({
     const visible = this.get('layerGroup.visible');
 
     if (this.layerVisibilityType === 'singleton') {
-      if (this.position === 1 && this.get('layerGroup.visible')) {
-        next(() => this.set('visibility', true));
+      if (this.position === 1 && visible) {
+        this.set('visibility', true);
       } else {
-        next(() => this.set('visibility', false));
+        this.set('visibility', false);
       }
     } else {
-      next(() => this.set('visibility', visible));
+      this.set('visibility', visible);
     }
   },
 
@@ -54,53 +53,17 @@ export default Model.extend({
   displayName: attr('string'),
   style: attr('hash', { defaultValue: () => ({}) }),
 
-  /**
-    Determines whether to fire mouseover events for the layer.
-    @property highlightable
-    @type Boolean
-  */
   highlightable: attr('boolean', { defaultValue: false }),
-
-  /**
-    Determines whether to fire click events for the layer.
-    @property clickable
-    @type Boolean
-  */
   clickable: attr('boolean', { defaultValue: false }),
-
-  /**
-    Determines whether to render positioned tooltip components for the layer.
-    @property tooltipable
-    @type Boolean
-  */
   tooltipable: attr('boolean', { defaultValue: false }),
-
-  /**
-    Optional template for tooltips. Does not handle any rendering.
-    @property tooltipTemplate
-    @type String
-  */
   tooltipTemplate: attr('string', { defaultValue: '' }),
 
   paint: alias('style.paint'),
   layout: alias('style.layout'),
   layerVisibilityType: alias('layerGroup.layerVisibilityType'),
 
-  /**
-    Computed alias that returns a newly built mapbox layer object. Necessary to maintain state bindings.
-    @property mapboxGlStyle
-    @type Object
-    @private
-  */
-  mapboxGlStyle: computed('style.{paint,layout,filter}', function () {
-    return this.get('style');
-  }),
+  mapboxGlStyle: reads('style'),
 
-  /**
-    Getter and setter for filter. Array structure should follow Mapbox's [Expression](https://www.mapbox.com/mapbox-gl-js/style-spec/#expressions) syntax.
-    @property filter
-    @type Array
-  */
   filter: computed('style.filter', {
     get() {
       return this.get('style.filter');
@@ -112,12 +75,6 @@ export default Model.extend({
     },
   }),
 
-  /**
-    Getter and setter for visibility. Mutates a Mapbox property that actually determines visibility. Depends on parent visibility.
-
-    @property visibility
-    @type Boolean
-  */
   visibility: computed('layout.visibility', {
     get() {
       return this.get('layout.visibility') === 'visible';

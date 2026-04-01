@@ -1,12 +1,12 @@
 Description
 ------------------------------------------------------------------------------
-Collection of several @nycplanning ember addons into a mono-addon.  
+Collection of several @nycplanning ember addons into a mono-addon.
 Included addons:
 - [labs-ui](https://github.com/nyCPlanning/labs-ui)
   - `labs-ui` (current version)
   - `deprecated` (legacy version)
 - [ember-mapbox-composer](https://github.com/NYCPlanning/ember-mapbox-composer)
-- [cartobox-promises-utility](https://github.com/NYCPlanning/cartobox-promises-utility) 
+- [cartobox-promises-utility](https://github.com/NYCPlanning/cartobox-promises-utility)
 - [labs-ember-search](https://github.com/NYCPlanning/labs-ember-search)
 - [ember-needs-async](https://www.npmjs.com/package/ember-needs-async) (A labs specific fork of
 an existing project)

@@ -1,14 +1,10 @@
-{{#labs-map
-  id="main-map"
-  mapLoaded=(action "mapLoaded")
-  layerGroups=this.model
-  initOptions=this.initMapOptions as |map|}}
-  {{#map.labs-layers as |layers|}}
-    {{#layers.tooltip}}
+<LabsMap @id="main-map" @mapLoaded={{action "mapLoaded"}} @layerGroups={{this.model}} @initOptions={{this.initMapOptions}} as |map|>
+  <map.labs-layers as |layers|>
+    <layers.tooltip>
       Bananas
-    {{/layers.tooltip}}
-  {{/map.labs-layers}}
-{{/labs-map}}
+    </layers.tooltip>
+  </map.labs-layers>
+</LabsMap>
 
 <LabsSearch />
 <LabsBblLookup />
