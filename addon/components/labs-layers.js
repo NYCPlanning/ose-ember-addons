@@ -126,7 +126,7 @@ export default Component.extend({
 
   layers: computed('layerGroups.@each.layers', function () {
     return ArrayProxy.create({
-      content: this.get('layerGroups')
+      content: this.layerGroups
         .map((layerGroup) => get(layerGroup, 'layers'))
         .reduce((accumulator, current) => {
           const layers = current.toArray();
@@ -226,8 +226,7 @@ export default Component.extend({
       const mouseMoveEvent = this.onLayerMouseMove;
       mouseMoveEvent(e, foundLayer);
 
-      const { highlightable, tooltipable, clickable } =
-        foundLayer.getProperties('highlightable', 'tooltipable', 'clickable');
+      const { highlightable, tooltipable, clickable } = foundLayer;
 
       if (clickable) {
         map.getCanvas().style.cursor = 'pointer';

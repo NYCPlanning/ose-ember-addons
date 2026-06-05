@@ -1,6 +1,6 @@
 {
   "name": "@nycplanning/ember",
-  "version": "3.2.0",
+  "version": "3.3.0",
   "description": "A central repository for Ember addons maintained and used by New York City Department of City Planning.",
   "keywords": [
     "ember-addon"
@@ -23,18 +23,19 @@
     "test:ember": "ember test"
   },
   "dependencies": {
+    "@nycplanning/nyc-planning-style-guide": "^3.0.0",
     "@turf/union": "^6.0.0",
     "ember-auto-import": "^2.6.3",
     "ember-cli-babel": "^7.26.11",
     "ember-cli-htmlbars": "^6.2.0",
     "ember-composable-helpers": "3.2.0",
     "ember-copy": "^2.0.1",
+    "ember-lifeline": "^7.0.0",
     "ember-power-select": "^7.1.0",
     "ember-promise-helpers": "^2.0.0",
     "ember-tooltips": "^3.6.0",
     "ember-truth-helpers": "^3.1.1",
-    "mapbox-gl": "^1.0.0",
-    "nyc-planning-style-guide": "^2.0.0"
+    "mapbox-gl": "^1.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",
@@ -95,7 +96,7 @@
     "ember-source": "^4.0.0"
   },
   "engines": {
-    "node": "^16.20.0 || ^18.16.0"
+    "node": "^20.20.1"
   },
   "ember": {
     "edition": "octane"
@@ -103,5 +104,5 @@
   "ember-addon": {
     "configPath": "tests/dummy/config"
   },
-  "homepage": "https://www.npmjs.com/package/@nycplanning/ember"
+  "homepage": "https://www.npmjs.com/package/@nycplanning/nyc-planning-style-guide"
 }
