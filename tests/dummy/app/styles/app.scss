@@ -2,7 +2,7 @@
 @import 'util/util';
 
 // Labs UI variables
-@import 'nyc-planning-variables';
+@import 'app/styles/nyc-planning-style-guide/scss/_nyc-planning-variables.scss';
 
 // Foundation mixins
 @import 'foundation';
@@ -59,7 +59,7 @@
 // // NYC Planning Style Guide modules (import all or some)
 // // --------------------------------------------------
 
-@import 'modules/nyc-planning-all-modules';
+// @import 'modules/nyc-planning-all-modules';
 
 // //
 // // Labs UI modules (import all or some)
