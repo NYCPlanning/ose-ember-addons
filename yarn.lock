@@ -10674,11 +10674,6 @@ morgan@^1.10.0:
     on-finished "~2.3.0"
     on-headers "~1.0.2"
 
-motion-ui@^2.0.4:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/motion-ui/-/motion-ui-2.0.4.tgz#3d9423c26b76e577da19b5f0915fea067433bf1a"
-  integrity sha512-7GjtcXXqRHUQGH9Gm8KLbvx9sz5tNGlftsaJ/J5d4q33PzfgKnUm+OynDji4VR3fiZXPT3nMkzBQlZsifYTIOg==
-
 mout@^1.0.0:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/mout/-/mout-1.2.4.tgz#9ffd261c4d6509e7ebcbf6b641a89b36ecdf8155"
@@ -11284,16 +11279,6 @@ number-is-nan@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/number-is-nan/-/number-is-nan-1.0.1.tgz#097b602b53422a522c1afb8790318336941a011d"
   integrity sha512-4jbtZXNAsfZbAHiiqjLPBiCl16dES1zI4Hpzzxw61Tk+loF+sBDBKx1ICKKKwIqQ7M0mFn1TmkN7euSncWgHiQ==
-
-nyc-planning-style-guide@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/nyc-planning-style-guide/-/nyc-planning-style-guide-2.0.0.tgz#a07c45400b66d7ff0e43595de3655800b283cfab"
-  integrity sha512-cGhOcMkPa2+6lOftYZGzAk6s3q2P8iD/JHqj97fK+LQCWQ2GgPl85rb706ce3XVBJT6D7yXhpkJX2eti+w0UiQ==
-  dependencies:
-    foundation-sites "^6.7.5"
-    jquery "^3.6.0"
-    motion-ui "^2.0.4"
-    what-input "^5.2.10"
 
 oauth-sign@~0.8.1:
   version "0.8.2"

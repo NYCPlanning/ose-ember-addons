@@ -20,7 +20,7 @@ module.exports = function (defaults) {
     sassOptions: {
       includePaths: [
         'node_modules/foundation-sites/scss',
-        'node_modules/nyc-planning-style-guide/dist/assets/scss',
+        'app/styles/nyc-planning-style-guide',
       ],
       sourceMapEmbed: true,
     },
