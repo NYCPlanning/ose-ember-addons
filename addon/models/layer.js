@@ -21,11 +21,11 @@ export default Model.extend({
     // determine which is the first occurring layer
     // for testing, should check that a related layer group exists
     if (
-      this.get('layerVisibilityType') === 'singleton' &&
-      this.get('layerGroup') &&
+      this.layerVisibilityType === 'singleton' &&
+      this.layerGroup &&
       !this.get('layerGroup._firstOccurringLayer')
     ) {
-      this.set('layerGroup._firstOccurringLayer', this.get('id'));
+      this.set('layerGroup._firstOccurringLayer', this.id);
       this.set('position', 1);
     }
 
@@ -92,9 +92,7 @@ export default Model.extend({
     @type Object
     @private
   */
-  mapboxGlStyle: computed('style.{paint,layout,filter}', function () {
-    return this.get('style');
-  }),
+  mapboxGlStyle: computed.reads('style'),
 
   /**
     Getter and setter for filter. Array structure should follow Mapbox's [Expression](https://www.mapbox.com/mapbox-gl-js/style-spec/#expressions) syntax.

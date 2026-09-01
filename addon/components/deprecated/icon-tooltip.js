@@ -1,4 +1,4 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import layout from '../../templates/components/deprecated/icon-tooltip';
 
 export default Component.extend({

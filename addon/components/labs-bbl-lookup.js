@@ -1,4 +1,4 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import carto from '@nycplanning/ember/utils/carto';
 
 export default Component.extend({

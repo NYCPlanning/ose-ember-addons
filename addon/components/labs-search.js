@@ -1,4 +1,4 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import { computed } from '@ember/object'; // eslint-disable-line
 import { timeout, task } from 'ember-concurrency';
 import { getOwner } from '@ember/application';
@@ -27,6 +27,15 @@ export default Component.extend({
       route: route,
       helpers: helpers,
     });
+
+    this.set(
+      'searchHistory',
+      window.localStorage['search-history']
+        ? JSON.parse(window.localStorage['search-history'])
+        : []
+    );
+
+    this.set('filteredSearchHistory', []);
   },
 
   classNames: ['labs-geosearch'],
@@ -67,8 +76,6 @@ export default Component.extend({
 
   useSearchHistory: false,
 
-  searchHistory: window.localStorage["search-history"] ? JSON.parse(window.localStorage["search-history"]) : [],
-
   searchPlaceholder: 'Search...',
   searchTerms: '',
   selected: 0,
@@ -76,10 +83,8 @@ export default Component.extend({
 
   loading: null,
 
-  filteredSearchHistory: [],
-
   debouncedResults: task(function* (searchTerms) {
-    this.send('filterSearchHistory', searchTerms)
+    this.send('filterSearchHistory', searchTerms);
     if (searchTerms.length < 2) {
       this.set('currResults', this.filteredSearchHistory);
       return;
@@ -104,7 +109,10 @@ export default Component.extend({
       return mutatedResult;
     });
 
-    this.set('currResults', this.filteredSearchHistory.concat(mergedWithTitles));
+    this.set(
+      'currResults',
+      this.filteredSearchHistory.concat(mergedWithTitles)
+    );
     this.set('loading', null);
 
     return mergedWithTitles;
@@ -168,13 +176,13 @@ export default Component.extend({
     },
 
     goTo(result) {
-      this.send('addSearchToSearchHistory', result)
+      this.send('addSearchToSearchHistory', result);
       const el = document.querySelector('.map-search-input');
       const event = document.createEvent('HTMLEvents');
       event.initEvent('blur', true, false);
       el.dispatchEvent(event);
 
-      result.searchQuery = this.get('searchTerms');
+      result.searchQuery = this.searchTerms;
 
       this.setProperties({
         selected: 0,
@@ -203,34 +211,58 @@ export default Component.extend({
     },
 
     saveSearchHistory() {
-      window.localStorage["search-history"] = JSON.stringify(this.searchHistory.slice(0, 100))
+      window.localStorage['search-history'] = JSON.stringify(
+        this.searchHistory.slice(0, 100)
+      );
     },
 
     addSearchToSearchHistory(result) {
-      if(this.useSearchHistory) {
-        const h = [...this.searchHistory].filter((search) => search.label !== result.label);
-        this.set('searchHistory', [{...result, typeTitle: "Search History"}, ...h]);
+      if (this.useSearchHistory) {
+        const h = [...this.searchHistory].filter(
+          (search) => search.label !== result.label
+        );
+        this.set('searchHistory', [
+          { ...result, typeTitle: 'Search History' },
+          ...h,
+        ]);
         this.send('saveSearchHistory');
       }
     },
 
     removeSearchFromSearchHistory(result) {
-      this.set('searchHistory', [...this.searchHistory].filter((search) => search.label !== result.label));
+      this.set(
+        'searchHistory',
+        [...this.searchHistory].filter(
+          (search) => search.label !== result.label
+        )
+      );
       this.send('saveSearchHistory');
-      this.set('currResults', [...this.currResults].filter((curr) => curr.label !== result.label));
+      this.set(
+        'currResults',
+        [...this.currResults].filter((curr) => curr.label !== result.label)
+      );
     },
 
     clearSearchHistory() {
       this.set('searchHistory', []);
       this.send('saveSearchHistory');
-      this.set('currResults', [...this.currResults].filter((search) => search.typeTitle !== "Search History"))
+      this.set(
+        'currResults',
+        [...this.currResults].filter(
+          (search) => search.typeTitle !== 'Search History'
+        )
+      );
     },
 
     filterSearchHistory(query) {
-      if(this.useSearchHistory) {
-        const h = [...this.searchHistory].filter((search) => search.label.toUpperCase().includes(query.toUpperCase())).slice(0, 5);
-        this.set('filteredSearchHistory', h)
+      if (this.useSearchHistory) {
+        const h = [...this.searchHistory]
+          .filter((search) =>
+            search.label.toUpperCase().includes(query.toUpperCase())
+          )
+          .slice(0, 5);
+        this.set('filteredSearchHistory', h);
       }
-    },   
+    },
   },
 });

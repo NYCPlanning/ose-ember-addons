@@ -1,4 +1,4 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import layout from '../../templates/components/deprecated/layer-group-toggle';
 
 export default Component.extend({

@@ -1,4 +1,4 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import { computed, get } from '@ember/object';
 import turfUnion from '@turf/union';
 import ArrayProxy from '@ember/array/proxy';

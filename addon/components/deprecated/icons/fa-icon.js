@@ -1,4 +1,4 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import { computed } from '@ember/object';
 import { htmlSafe } from '@ember/template';
 import layout from '../../../templates/components/deprecated/icons/fa-icon';

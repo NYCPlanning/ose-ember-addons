@@ -1,4 +1,4 @@
-import Component from '@ember/component';
+import Component from '@glimmer/component';
 import { computed } from '@ember/object';
 import { next } from '@ember/runloop';
 import { A } from '@ember/array';

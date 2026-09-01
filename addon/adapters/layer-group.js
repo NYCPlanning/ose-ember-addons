@@ -12,8 +12,8 @@ export default class LayerGroupAdapter extends JSONAPIAdapter {
         'ember-mapbox-composer'
       ] || {};
 
-    this.set('host', host);
-    this.set('namespace', 'v1');
+    this.host = host;
+    this.namespace = 'v1';
   }
 
   query(store, type, query = {}) {
