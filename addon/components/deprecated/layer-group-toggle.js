@@ -45,7 +45,6 @@ export default class LayerGroupToggleComponent extends Component {
 
   @action
   toggle() {
-    console.log('toggle called');
     this.toggleProperty('active');
   };
 };

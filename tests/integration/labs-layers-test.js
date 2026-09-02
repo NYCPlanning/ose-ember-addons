@@ -184,7 +184,6 @@ module(
       await render(
         hbs`<LabsLayers @layerGroups={{this.model.layerGroups}} @map={{this.map}} />`
       );
-
       assert.strictEqual(
         this.map.getPaintProperty(this.layer.get('style.id'), 'circle-color'),
         'white',

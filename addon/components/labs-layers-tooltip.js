@@ -60,7 +60,6 @@ export default class LabsLayersTooltipComponent extends Component {
   }
   
   style = computed('mousePosition', 'offset', function () {
-    console.log("mousePosition", this.mousePosition);
     const { y: top, x: left } = this.mousePosition;
     const offset = this.offset;
 

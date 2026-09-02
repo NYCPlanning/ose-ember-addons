@@ -41,8 +41,6 @@ module('Integration | Component | labs-layers-tooltip', function (hooks) {
     );
 
     const tooltip = await find('.map-tooltip');
-    console.log('RENDERED HTML:', this.element.innerHTML)
-    console.log("offset", getComputedStyle(tooltip));
     assert.strictEqual(getComputedStyle(tooltip)['top'], '21px');
     assert.strictEqual(getComputedStyle(tooltip)['left'], '21px');
   });

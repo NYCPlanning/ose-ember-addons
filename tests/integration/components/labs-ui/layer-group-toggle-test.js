@@ -8,9 +8,8 @@ module('Integration | Component | layer-group-toggle', function (hooks) {
 
   test('it opens and closes on click', async function (assert) {
     await render(
-      hbs`<Deprecated::LayerGroupToggle @label="Foo" @active={{true}} >Bsdfdsdsar</Deprecated::LayerGroupToggle>`
+      hbs`<LabsUi::LayerGroupToggle @label="Foo" @active={{true}} >Bsdfdsdsar</LabsUi::LayerGroupToggle>`
     );
-    console.log('RENDERED HTML:', this.element.innerHTML);
     await click('.layer-group-toggle-label');
     const content = find('.layer-group-toggle-content');
     assert.false(!!content);
@@ -22,14 +21,14 @@ module('Integration | Component | layer-group-toggle', function (hooks) {
 
   test('it yields content when open', async function (assert) {
     await render(
-      hbs`<Deprecated::LayerGroupToggle @label="Foo" @active={{true}} >Bar</Deprecated::LayerGroupToggle>`
+      hbs`<LabsUi::LayerGroupToggle @label="Foo" @active={{true}} >Bar</LabsUi::LayerGroupToggle>`
     );
     const content = find('.layer-group-toggle-content').textContent.trim();
     assert.strictEqual(content, 'Bar');
   });
 
   test('it shows a title', async function (assert) {
-    await render(hbs`<Deprecated::LayerGroupToggle @label="Foo" />`);
+    await render(hbs`<LabsUi::LayerGroupToggle @label="Foo" />`);
     const title = await find(
       '.layer-group-toggle-header .layer-group-toggle-label'
     ).textContent.trim();
@@ -37,7 +36,7 @@ module('Integration | Component | layer-group-toggle', function (hooks) {
   });
 
   test('accepts a for property to lookup an object', async function (assert) {
-    await render(hbs`<Deprecated::LayerGroupToggle @label="Foo" />`);
+    await render(hbs`<LabsUi::LayerGroupToggle @label="Foo" />`);
     const title = await find(
       '.layer-group-toggle-header .layer-group-toggle-label'
     ).textContent.trim();

@@ -37,8 +37,6 @@ module('Integration | Component | labs-ui/site-header', function (hooks) {
     assert.true(!!dcpLinkIcon);
 
     // The {{site-header-title}} contextual component renders
-        console.log("siteheader test innerhtml", this.element.innerHTML);
-
     const siteTitle = find('.site-title').textContent.trim();
     assert.strictEqual(siteTitle, 'Foo');
 
