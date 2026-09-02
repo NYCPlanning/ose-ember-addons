@@ -24,8 +24,8 @@ import Component from '@glimmer/component';
   @yield {Component} States.loaded a component that renders its block and yields the task value once the task is done loading
   @yield {Component} States.error a component that renders its block and yields an error if the tak encountered an error
 */
-export default Component.extend({
-  tagName: '',
+export default class NeedsAsyncComponent extends Component {
+  tagName = '';
 
-  needs: null,
-});
+  needs = null;
+}

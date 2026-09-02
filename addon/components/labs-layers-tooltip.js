@@ -54,8 +54,8 @@ import { htmlSafe } from '@ember/template';
   @class LabsLayersTooltipComponent
   @public
 */
-export default Component.extend({
-  style: computed('mousePosition', 'offset', function () {
+export default class LabsLayersTooltipComponent extends Component {
+  style = computed('mousePosition', 'offset', function () {
     const { y: top, x: left } = this.mousePosition;
     const offset = this.offset;
 
@@ -64,35 +64,35 @@ export default Component.extend({
       left: ${left + offset}px; 
       pointer-events: none;
     `);
-  }),
+  });
 
   /**
     Offset of tooltip div element in pixels.
     @argument offset
     @type Number
   */
-  offset: 20,
+  offset = 20;
 
   /**
     Top offset of tooltip div in pixels.
     @argument top
     @type Number
   */
-  top: 0,
+  top = 0;
 
   /**
     Left offset of tooltip div in pixels.
     @argument left
     @type Number
   */
-  left: 0,
+  left = 0;
 
   /**
     Native mousePosition object that is passed from labs-layers
     @type Object
     @private
   **/
-  mousePosition: null,
+  mousePosition = null;
 
   /**
     Geographic feature of the layer that is hovered when onLayerMouseMove is fired.
@@ -100,7 +100,7 @@ export default Component.extend({
     @type Object
     @private
   */
-  feature: null,
+  feature = null;
 
   /**
     Layer that is hovered when onLayerMouseMove is fired.
@@ -108,5 +108,5 @@ export default Component.extend({
     @type Object
     @private
   */
-  layer: null,
-});
+  layer = null;
+};

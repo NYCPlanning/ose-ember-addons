@@ -3,17 +3,18 @@ import { computed } from '@ember/object';
 import { htmlSafe } from '@ember/template';
 import layout from '../../../templates/components/deprecated/icons/fa-icon';
 
-export default Component.extend({
-  init() {
-    this._super(...arguments);
-  },
-  tagName: 'span',
-  classNames: ['legend-icon-layer'],
-  layout,
+export default class FaIconComponent extends Component {
+  constructor(...args) {
+    super(...args);
+  }
 
-  options() {},
+  tagName = 'span';
+  classNames = ['legend-icon-layer'];
+  layout = layout;
 
-  spanStyle: computed('options.color', function () {
+  options() {};
+
+  spanStyle = computed('options.color', function () {
     return htmlSafe(this.options.color ? `color: ${this.options.color}` : '');
-  }),
-});
+  })
+};

@@ -3,6 +3,7 @@ import { computed, get } from '@ember/object';
 import turfUnion from '@turf/union';
 import ArrayProxy from '@ember/array/proxy';
 import { warn } from '@ember/debug';
+import { action } from '@ember/object';
 
 /**
   Renders a collection of Mapbox Composer-compatible layer groups.
@@ -47,7 +48,7 @@ import { warn } from '@ember/debug';
   @class LayersComponent
   @public
 */
-export default Component.extend({
+export default class LabsLayersComponent extends Component {
   /**
     Reference to a instance of a MapboxGL map. Handled internally when using contextual components:
 
@@ -60,7 +61,7 @@ export default Component.extend({
     @private
     @type MapboxGL Map Instance
   */
-  map: null,
+  map = null
 
   /**
     Whether layergroups should have interactivity (highlighting and clicking).  Useful for temporarily disabling interactivity during drawing mode.
@@ -68,53 +69,53 @@ export default Component.extend({
     @argument interactivity
     @type boolean
   */
-  interactivity: true,
+  interactivity = true;
 
   /**
     Collection of layer-group objects
     @argument layerGroups
     @type Array
   */
-  layerGroups: null,
+  layerGroups = null;
 
   /**
     Event fired on layer click. Scoped to individual layers. Returns the mouse event and clicked layer.
     @argument onLayerClick
     @type Action
   */
-  onLayerClick() {},
+  onLayerClick() {};
 
   /**
     Event fired on layer mousemove. Scoped to individual layers. Returns the mouse event and found layer.
     @argument onLayerMouseMove
     @type Action
   */
-  onLayerMouseMove() {},
+  onLayerMouseMove() {};
 
   /**
     Event fired on layer mouseleave. Scoped to individual layers. Returns the mouse event and found layer.
     @argument onLayerMouseLeave
     @type Action
   */
-  onLayerMouseLeave() {},
+  onLayerMouseLeave() {};
 
   /**
     Event fired on layer highlight. Returns the id of the layer that is being highlighted.
     @argument onLayerHighlight
     @type Action
   */
-  onLayerHighlight() {},
+  onLayerHighlight() {};
 
   /**
     Name of local component to use in place of default component.
     @argument toolTipComponent
     @type String
   */
-  toolTipComponent: 'labs-layers-tooltip',
+  toolTipComponent = 'labs-layers-tooltip';
 
-  hoveredFeature: null,
+  hoveredFeature = null;
 
-  hoveredLayer: computed('hoveredFeature', 'layers', function () {
+  hoveredLayer = computed('hoveredFeature', 'layers', function () {
     const feature = this.hoveredFeature;
 
     if (feature) {
@@ -122,9 +123,9 @@ export default Component.extend({
     }
 
     return null;
-  }),
+  });
 
-  layers: computed('layerGroups.@each.layers', function () {
+  layers = computed('layerGroups.@each.layers', function () {
     return ArrayProxy.create({
       content: this.get('layerGroups')
         .map((layerGroup) => get(layerGroup, 'layers'))
@@ -134,9 +135,9 @@ export default Component.extend({
           return [...accumulator, ...layers];
         }, []),
     });
-  }),
+  });
 
-  interactiveLayerIds: computed('layers.@each.visibility', function () {
+  interactiveLayerIds =computed('layers.@each.visibility', function () {
     return this.layers
       .filterBy('visibility', true)
       .filter(
@@ -144,9 +145,9 @@ export default Component.extend({
           highlightable || tooltipable || clickable
       )
       .map((layer) => layer.get('id'));
-  }),
+  });
 
-  mousePosition: null,
+  mousePosition = null;
 
   stitchHoveredTiles(feature) {
     const map = this.map;
@@ -187,126 +188,127 @@ export default Component.extend({
     return featureFragments.reduce((acc, curr) =>
       turfUnion(curr, acc ? acc : curr)
     );
-  },
+  };
 
-  actions: {
-    async handleLayerMouseClick(e) {
-      // TODO: stitch clicked feature
-      const {
-        features: [feature],
-      } = e;
-      const interactivity = this.interactivity;
+  @action
+  async handleLayerMouseClick(e) {
+    // TODO: stitch clicked feature
+    const {
+      features: [feature],
+    } = e;
+    const interactivity = this.interactivity;
 
-      const foundLayer = this.layers.findBy('id', feature.layer.id);
-      const layerClickEvent = this.onLayerClick;
+    const foundLayer = this.layers.findBy('id', feature.layer.id);
+    const layerClickEvent = this.onLayerClick;
 
-      if (layerClickEvent && feature && interactivity) {
+    if (layerClickEvent && feature && interactivity) {
+      const { geometry } = this.stitchHoveredTiles(feature);
+      feature.geometry = geometry;
+
+      layerClickEvent(feature, foundLayer);
+    }
+  }
+
+  @action
+  async handleLayerMouseMove(e) {
+    // only query the visible layers
+    const layerIds = this.interactiveLayerIds;
+    const [feature] = this.map.queryRenderedFeatures(e.point, {
+      layers: layerIds,
+    });
+    if (!feature) return;
+
+    const map = this.map;
+    const interactivity = this.interactivity;
+
+    const foundLayer = this.layers.findBy('id', feature.layer.id);
+
+    // this layer-specific event should always be called
+    // if it's available
+    const mouseMoveEvent = this.onLayerMouseMove;
+    mouseMoveEvent(e, foundLayer);
+
+    const { highlightable, tooltipable, clickable } =
+      foundLayer.getProperties('highlightable', 'tooltipable', 'clickable');
+
+    if (clickable) {
+      map.getCanvas().style.cursor = 'pointer';
+    }
+
+    // if layer is set for this behavior
+    if ((highlightable || tooltipable) && interactivity) {
+      const hoveredFeature = this.hoveredFeature;
+      let isNew = true;
+      if (hoveredFeature) {
+        if (
+          feature.properties.id === hoveredFeature.properties.id &&
+          feature.layer.id === hoveredFeature.layer.id
+        ) {
+          isNew = false;
+        }
+      }
+
+      if (isNew) {
+        const highlightEvent = this.onLayerHighlight;
+        // if this is different from the currently highlighted feature
+        highlightEvent(e, foundLayer);
+
+        // only stitch if it's for highlighting and new
+        // query for features of a given source
         const { geometry } = this.stitchHoveredTiles(feature);
         feature.geometry = geometry;
 
-        layerClickEvent(feature, foundLayer);
-      }
-    },
+        // set the hovered feature
+        this.set('hoveredFeature', feature);
 
-    async handleLayerMouseMove(e) {
-      // only query the visible layers
-      const layerIds = this.interactiveLayerIds;
-      const [feature] = this.map.queryRenderedFeatures(e.point, {
-        layers: layerIds,
-      });
-      if (!feature) return;
+        map.getSource('hovered-feature').setData(feature);
 
-      const map = this.map;
-      const interactivity = this.interactivity;
-
-      const foundLayer = this.layers.findBy('id', feature.layer.id);
-
-      // this layer-specific event should always be called
-      // if it's available
-      const mouseMoveEvent = this.onLayerMouseMove;
-      mouseMoveEvent(e, foundLayer);
-
-      const { highlightable, tooltipable, clickable } =
-        foundLayer.getProperties('highlightable', 'tooltipable', 'clickable');
-
-      if (clickable) {
-        map.getCanvas().style.cursor = 'pointer';
-      }
-
-      // if layer is set for this behavior
-      if ((highlightable || tooltipable) && interactivity) {
-        const hoveredFeature = this.hoveredFeature;
-        let isNew = true;
-        if (hoveredFeature) {
-          if (
-            feature.properties.id === hoveredFeature.properties.id &&
-            feature.layer.id === hoveredFeature.layer.id
-          ) {
-            isNew = false;
-          }
-        }
-
-        if (isNew) {
-          const highlightEvent = this.onLayerHighlight;
-          // if this is different from the currently highlighted feature
-          highlightEvent(e, foundLayer);
-
-          // only stitch if it's for highlighting and new
-          // query for features of a given source
-          const { geometry } = this.stitchHoveredTiles(feature);
-          feature.geometry = geometry;
-
-          // set the hovered feature
-          this.set('hoveredFeature', feature);
-
-          map.getSource('hovered-feature').setData(feature);
-
-          if (feature.layer.type == 'circle') {
-            map.setLayoutProperty(
-              'highlighted-feature-circle',
-              'visibility',
-              'visible'
-            );
-            map.setLayoutProperty(
-              'highlighted-feature-line',
-              'visibility',
-              'none'
-            );
-          } else {
-            map.setLayoutProperty(
-              'highlighted-feature-circle',
-              'visibility',
-              'none'
-            );
-            map.setLayoutProperty(
-              'highlighted-feature-line',
-              'visibility',
-              'visible'
-            );
-          }
+        if (feature.layer.type == 'circle') {
+          map.setLayoutProperty(
+            'highlighted-feature-circle',
+            'visibility',
+            'visible'
+          );
+          map.setLayoutProperty(
+            'highlighted-feature-line',
+            'visibility',
+            'none'
+          );
+        } else {
+          map.setLayoutProperty(
+            'highlighted-feature-circle',
+            'visibility',
+            'none'
+          );
+          map.setLayoutProperty(
+            'highlighted-feature-line',
+            'visibility',
+            'visible'
+          );
         }
       }
+    }
 
-      this.set('mousePosition', e.point);
-    },
+    this.set('mousePosition', e.point);
+  };
 
-    handleLayerMouseLeave() {
-      const map = this.map;
-      this.set('hoveredFeature', null);
-      map.getCanvas().style.cursor = '';
-      this.setProperties({
-        hoveredFeature: null,
-        mousePosition: null,
-      });
+  @action
+  handleLayerMouseLeave() {
+    const map = this.map;
+    this.set('hoveredFeature', null);
+    map.getCanvas().style.cursor = '';
+    this.setProperties({
+      hoveredFeature: null,
+      mousePosition: null,
+    });
 
-      map.setLayoutProperty('highlighted-feature-circle', 'visibility', 'none');
-      map.setLayoutProperty('highlighted-feature-line', 'visibility', 'none');
+    map.setLayoutProperty('highlighted-feature-circle', 'visibility', 'none');
+    map.setLayoutProperty('highlighted-feature-line', 'visibility', 'none');
 
-      const mouseLeaveEvent = this.onLayerMouseLeave;
+    const mouseLeaveEvent = this.onLayerMouseLeave;
 
-      if (mouseLeaveEvent) {
-        mouseLeaveEvent();
-      }
-    },
-  },
-});
+    if (mouseLeaveEvent) {
+      mouseLeaveEvent();
+    }
+  };
+};

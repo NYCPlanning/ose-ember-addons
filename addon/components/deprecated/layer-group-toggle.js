@@ -1,48 +1,48 @@
 import Component from '@glimmer/component';
 import layout from '../../templates/components/deprecated/layer-group-toggle';
+import { action } from '@ember/object';
 
-export default Component.extend({
-  init(...args) {
-    this._super(...args);
+export default class LayerGroupToggleComponent extends Component {
+  constructor(...args) {
+    super(...args);
 
     this.didInit(this);
 
     this.set('icon', []);
-  },
+  };
 
-  classNames: ['layer-group-toggle'],
-  classNameBindings: ['active'],
+  classNames = ['layer-group-toggle'];
+  classNameBindings = ['active'];
 
-  layout,
+  layout = layout;
 
-  label: null,
+  label = null;
 
-  tooltip: '',
+  tooltip = '';
 
-  infoLink: '',
+  infoLink = '';
 
-  infoLinkIcon: 'external-link-alt',
+  infoLinkIcon = 'external-link-alt';
 
-  tooltipIcon: 'info-circle',
+  tooltipIcon ='info-circle';
 
-  active: true,
+  active = true;
 
-  activeTooltip: '',
+  activeTooltip = '';
 
-  activeTooltipIcon: 'exclamation-triangle',
+  activeTooltipIcon = 'exclamation-triangle';
 
-  didInit() {},
+  didInit() {};
 
-  willDestroyHook() {},
+  willDestroyHook() {};
 
   willDestroy() {
     this._super(...arguments);
     this.willDestroyHook(this);
-  },
+  };
 
-  actions: {
-    toggle() {
-      this.toggleProperty('active');
-    },
-  },
-});
+  @action
+  toggle() {
+    this.toggleProperty('active');
+  };
+};

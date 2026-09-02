@@ -1,21 +1,21 @@
 import Component from '@glimmer/component';
 import layout from '../../templates/components/deprecated/site-header';
 
-export default Component.extend({
-  tagName: 'header',
-  classNames: ['site-header'],
+export default class SiteHeaderComponent extends Component {
+  tagName = 'header';
+  classNames = ['site-header'];
 
-  layout,
+  layout = layout;
 
-  ariaRole: 'banner',
+  ariaRole = 'banner';
 
-  closed: true,
+  closed = true;
 
-  responsiveNav: false,
+  responsiveNav = false;
 
-  responsiveSize: 'large',
+  responsiveSize = 'large';
 
-  betaNotice: function () {
+  betaNotice = function () {
     return this.args.betaNotice || false;
-  },
-});
+  };
+};
