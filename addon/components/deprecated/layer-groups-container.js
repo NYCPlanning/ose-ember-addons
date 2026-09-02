@@ -1,6 +1,5 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
-import { next } from '@ember/runloop';
 import { A } from '@ember/array';
 import layout from '../../templates/components/deprecated/layer-groups-container';
 
@@ -23,6 +22,7 @@ export default Component.extend({
 
     return activeStates.reduce((acc, curr) => {
       let mutatedAcc = acc;
+
       if (curr) {
         mutatedAcc += 1;
       }
@@ -41,15 +41,13 @@ export default Component.extend({
     toggleLayerGroupsContainer() {
       this.toggleProperty('open');
     },
+
     registerChild(componentContext) {
-      next(() => {
-        this.layerGroupToggleItems.pushObject(componentContext);
-      });
+      this.layerGroupToggleItems.pushObject(componentContext);
     },
+
     unregisterChild(componentContext) {
-      next(() => {
-        this.layerGroupToggleItems.removeObject(componentContext);
-      });
+      this.layerGroupToggleItems.removeObject(componentContext);
     },
   },
 });

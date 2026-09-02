@@ -1,13 +1,13 @@
 import { module, test } from 'qunit';
-import { run } from '@ember/runloop';
+import { settled } from '@ember/test-helpers';
 import { setupTest } from 'ember-qunit';
 
 module('Unit | Service | layer-groups', function (hooks) {
   setupTest(hooks);
 
-  // Replace this with your real tests.
   test('it exists', function (assert) {
     let service = this.owner.lookup('service:layer-groups');
+
     assert.ok(service);
   });
 
@@ -17,76 +17,39 @@ module('Unit | Service | layer-groups', function (hooks) {
     assert.strictEqual(service.get('visibleLayerGroups').length, 0);
   });
 
-  test('can initialize with initializeObservers', async function (assert) {
+  test('can initialize with initializeObservers', function (assert) {
     let store = this.owner.lookup('service:store');
     let service = this.owner.lookup('service:layer-groups');
 
-    await run(() => {
-      store.push({
-        data: [
-          {
-            type: 'layer-group',
-            id: 1,
-            attributes: {
-              visible: true,
-            },
-          },
-          {
-            type: 'layer-group',
-            id: 2,
-            attributes: {
-              visible: true,
-            },
-          },
-          {
-            type: 'layer-group',
-            id: 3,
-            attributes: {
-              visible: false,
-            },
-          },
-        ],
-      });
+    store.push({
+      data: [
+        { type: 'layer-group', id: 1, attributes: { visible: true } },
+        { type: 'layer-group', id: 2, attributes: { visible: true } },
+        { type: 'layer-group', id: 3, attributes: { visible: false } },
+      ],
     });
 
     service.initializeObservers(store.peekAll('layer-group'));
+
     assert.ok(service);
   });
 
-  test('it lists visibleLayerGroups when some visible', async function (assert) {
+  test('it lists visibleLayerGroups when some visible', function (assert) {
     let service = this.owner.lookup('service:layer-groups');
     let store = this.owner.lookup('service:store');
 
-    await run(() => {
-      store.push({
-        data: [
-          {
-            type: 'layer-group',
-            id: 1,
-            attributes: {
-              visible: true,
-            },
-          },
-          {
-            type: 'layer-group',
-            id: 2,
-            attributes: {
-              visible: true,
-            },
-          },
-          {
-            type: 'layer-group',
-            id: 3,
-            attributes: {
-              visible: false,
-            },
-          },
-        ],
-      });
+    store.push({
+      data: [
+        { type: 'layer-group', id: 1, attributes: { visible: true } },
+        { type: 'layer-group', id: 2, attributes: { visible: true } },
+        { type: 'layer-group', id: 3, attributes: { visible: false } },
+      ],
     });
 
     const layerGroups = store.peekAll('layer-group');
+
     service.initializeObservers(layerGroups);
+
     assert.strictEqual(service.get('visibleLayerGroups').length, 2);
   });
 
@@ -94,100 +57,98 @@ module('Unit | Service | layer-groups', function (hooks) {
     let service = this.owner.lookup('service:layer-groups');
     let store = this.owner.lookup('service:store');
 
-    await run(() => {
-      store.push({
-        data: [
-          {
-            type: 'layer-group',
-            id: 1,
-            attributes: {
-              visible: true,
-              'layer-visibility-type': 'binary',
-            },
+    store.push({
+      data: [
+        {
+          type: 'layer-group',
+          id: 1,
+          attributes: {
+            visible: true,
+            'layer-visibility-type': 'binary',
           },
-          {
-            type: 'layer-group',
-            id: 2,
-            attributes: {
-              visible: true,
-              'layer-visibility-type': 'binary',
-            },
+        },
+        {
+          type: 'layer-group',
+          id: 2,
+          attributes: {
+            visible: true,
+            'layer-visibility-type': 'binary',
           },
-          {
-            type: 'layer-group',
-            id: 3,
-            attributes: {
-              visible: false,
-              'layer-visibility-type': 'binary',
-            },
+        },
+        {
+          type: 'layer-group',
+          id: 3,
+          attributes: {
+            visible: false,
+            'layer-visibility-type': 'binary',
           },
-        ],
-      });
+        },
+      ],
     });
 
     const layerGroups = store.peekAll('layer-group');
 
     service.initializeObservers(layerGroups);
+
     assert.strictEqual(service.get('visibleLayerGroups').length, 2);
 
-    await run(() => {
-      layerGroups.get('firstObject').set('visible', false);
-    });
+    layerGroups[0].set('visible', false);
+
+    await settled();
 
     assert.strictEqual(service.get('visibleLayerGroups').length, 1);
   });
 
-  test('it updates substate based on filter, selection', async function (assert) {
+  test('it updates substate based on filter, selection', function (assert) {
     let service = this.owner.lookup('service:layer-groups');
     let store = this.owner.lookup('service:store');
 
-    await run(() => {
-      store.push({
-        data: [
-          {
-            type: 'layer-group',
-            id: 1,
-            attributes: {
-              visible: true,
-              'layer-visibility-type': 'singleton',
+    store.push({
+      data: [
+        {
+          type: 'layer-group',
+          id: 1,
+          attributes: {
+            visible: true,
+            'layer-visibility-type': 'singleton',
+          },
+          relationships: [
+            {
+              type: 'layer',
+              id: 1,
             },
-            relationships: [
-              {
-                type: 'layer',
-                id: 1,
-              },
-            ],
+          ],
+        },
+        {
+          type: 'layer-group',
+          id: 2,
+          attributes: {
+            visible: true,
+            'layer-visibility-type': 'binary',
           },
-          {
-            type: 'layer-group',
-            id: 2,
-            attributes: {
-              visible: true,
-              'layer-visibility-type': 'binary',
-            },
+        },
+        {
+          type: 'layer-group',
+          id: 3,
+          attributes: {
+            visible: false,
+            'layer-visibility-type': 'binary',
           },
-          {
-            type: 'layer-group',
-            id: 3,
-            attributes: {
-              visible: false,
-              'layer-visibility-type': 'binary',
-            },
-          },
-        ],
-        included: [
-          {
-            type: 'layer',
-            id: 1,
-            attributes: {},
-          },
-        ],
-      });
+        },
+      ],
+      included: [
+        {
+          type: 'layer',
+          id: 1,
+          attributes: {},
+        },
+      ],
     });
 
     const layerGroups = store.peekAll('layer-group');
 
     service.initializeObservers(layerGroups);
+
     assert.strictEqual(service.get('visibleLayerGroups').length, 2);
 
     assert.notStrictEqual(typeof service.get('visibleLayerGroups'), 'string');
