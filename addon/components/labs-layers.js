@@ -259,7 +259,7 @@ export default class LabsLayersComponent extends Component {
         feature.geometry = geometry;
 
         // set the hovered feature
-        this.set('hoveredFeature', feature);
+        this.hoveredFeature = feature;
 
         map.getSource('hovered-feature').setData(feature);
 
@@ -289,13 +289,13 @@ export default class LabsLayersComponent extends Component {
       }
     }
 
-    this.set('mousePosition', e.point);
+    this.mousePosition = e.point;
   };
 
   @action
   handleLayerMouseLeave() {
     const map = this.map;
-    this.set('hoveredFeature', null);
+    this.hoveredFeature = null;
     map.getCanvas().style.cursor = '';
     this.setProperties({
       hoveredFeature: null,

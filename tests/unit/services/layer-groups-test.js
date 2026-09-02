@@ -131,7 +131,7 @@ module('Unit | Service | layer-groups', function (hooks) {
     assert.strictEqual(service.get('visibleLayerGroups').length, 2);
 
     await run(() => {
-      layerGroups.get('firstObject').set('visible', false);
+      layerGroups[0].set('visible', false);
     });
 
     assert.strictEqual(service.get('visibleLayerGroups').length, 1);

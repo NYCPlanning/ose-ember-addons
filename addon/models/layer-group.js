@@ -17,10 +17,8 @@ export default Model.extend({
     this._super(...args);
 
     // update registry for aggregate state service
-    this.set(
-      'layerGroupService.layerGroupRegistry',
-      this.layerGroupService.layerGroupRegistry.concat(this)
-    );
+    this.layerGroupService.layerGroupRegistry = 
+    this.layerGroupService.layerGroupRegistry.concat(this);
   },
 
   layers: hasMany('layer', { async: false }),

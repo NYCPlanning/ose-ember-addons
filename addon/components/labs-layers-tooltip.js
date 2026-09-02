@@ -55,7 +55,12 @@ import { htmlSafe } from '@ember/template';
   @public
 */
 export default class LabsLayersTooltipComponent extends Component {
+  constructor(...args) {
+    super(...args);
+  }
+  
   style = computed('mousePosition', 'offset', function () {
+    console.log("mousePosition", this.mousePosition);
     const { y: top, x: left } = this.mousePosition;
     const offset = this.offset;
 
@@ -78,7 +83,7 @@ export default class LabsLayersTooltipComponent extends Component {
     @argument top
     @type Number
   */
-  top = 0;
+  top = 1000;
 
   /**
     Left offset of tooltip div in pixels.

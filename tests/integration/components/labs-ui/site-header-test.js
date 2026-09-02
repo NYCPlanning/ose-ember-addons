@@ -12,7 +12,7 @@ module('Integration | Component | labs-ui/site-header', function (hooks) {
 
     // Template block usage:
     await render(hbs`
-      <Deprecated::SiteHeader
+      <LabsUi::SiteHeader
         @responsiveNav={{true}}
         @responsiveSize="medium"
         @betaNotice={{true}}
@@ -24,8 +24,9 @@ module('Integration | Component | labs-ui/site-header', function (hooks) {
         <banner.nav>
           <span class="bar">Bar</span>
         </banner.nav>
-      </Deprecated::SiteHeader>
+      </LabsUi::SiteHeader>
     `);
+
 
     // The beta notice renders
     const betaNotice = find('.labs-beta-notice').textContent.trim();
@@ -36,6 +37,8 @@ module('Integration | Component | labs-ui/site-header', function (hooks) {
     assert.true(!!dcpLinkIcon);
 
     // The {{site-header-title}} contextual component renders
+        console.log("siteheader test innerhtml", this.element.innerHTML);
+
     const siteTitle = find('.site-title').textContent.trim();
     assert.strictEqual(siteTitle, 'Foo');
 

@@ -23,7 +23,7 @@ export default Controller.extend({
       window.map = e;
     },
     chooseOption(option) {
-      this.set('selectedOption', option);
+      this.selectedOption = option;
     },
   },
 });

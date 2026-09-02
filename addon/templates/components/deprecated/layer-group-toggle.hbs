@@ -7,7 +7,7 @@
           <span class="show-for-sr">Toggle Layer Group</span>
         </label>
       </div>
-      <span {{action 'toggle' preventDefault=false}} class="layer-group-toggle-label" role="button">
+      <span {{ on "click" (fn this.toggle) preventDefault=false}} class="layer-group-toggle-label" role="button">
         {{this.label}}
         {{#if this.active}}
           {{#if this.icon}}
@@ -31,6 +31,7 @@
 </div>
 {{#if this.active}}
   <div class="layer-group-toggle-content">
-    {{yield}}
+    <div>SFSKLDJFSLDK{{yield}}</div>
+    
   </div>
 {{/if}}

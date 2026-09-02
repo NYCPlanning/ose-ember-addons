@@ -17,7 +17,7 @@ export default Model.extend({
     this._super(...args);
 
     // enforce presence of blank object for mapboxGL validation
-    if (!this.get('style.layout')) this.set('style.layout', {});
+    if (!this.get('style.layout')) this.style.layout = {};
 
     // determine which is the first occurring layer
     // for testing, should check that a related layer group exists
@@ -26,8 +26,8 @@ export default Model.extend({
       this.layerGroup &&
       !this.get('layerGroup._firstOccurringLayer')
     ) {
-      this.set('layerGroup._firstOccurringLayer', this.id);
-      this.set('position', 1);
+      this.layerGroup._firstOccurringLayer = this.id;
+      this.position = 1;
     }
 
     this.delegateVisibility();
@@ -39,12 +39,12 @@ export default Model.extend({
 
     if (this.layerVisibilityType === 'singleton') {
       if (this.position === 1 && this.get('layerGroup.visible')) {
-        next(() => this.set('visibility', true));
+        next(() => this.visibility = true);
       } else {
-        next(() => this.set('visibility', false));
+        next(() => this.visibility = false);
       }
     } else {
-      next(() => this.set('visibility', visible));
+      next(() => this.visibility = visible);
     }
   },
 
@@ -106,7 +106,7 @@ export default Model.extend({
     },
     set(key, filter) {
       const newFilter = assign({}, this.style, { filter });
-      this.set('style', newFilter);
+      this.style = newFilter;
       return newFilter;
     },
   }),
@@ -128,7 +128,7 @@ export default Model.extend({
 
       if (layout) {
         set(layout, 'visibility', visibility);
-        this.set('layout', layout);
+        this.layout = layout;
       }
 
       return visibility === 'visible';

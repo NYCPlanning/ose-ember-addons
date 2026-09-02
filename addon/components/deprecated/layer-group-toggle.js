@@ -8,7 +8,7 @@ export default class LayerGroupToggleComponent extends Component {
 
     this.didInit(this);
 
-    this.set('icon', []);
+    this.icon = [];
   };
 
   classNames = ['layer-group-toggle'];
@@ -37,12 +37,15 @@ export default class LayerGroupToggleComponent extends Component {
   willDestroyHook() {};
 
   willDestroy() {
-    this._super(...arguments);
+    if (super.willDestroy) {
+      super.willDestroy(...arguments);
+    }
     this.willDestroyHook(this);
   };
 
   @action
   toggle() {
+    console.log('toggle called');
     this.toggleProperty('active');
   };
 };

@@ -29,14 +29,12 @@ export default class LabsSearchComponent extends Component {
       helpers: helpers,
     });
 
-    this.set(
-      'searchHistory',
-      window.localStorage['search-history']
-        ? JSON.parse(window.localStorage['search-history'])
-        : []
-    );
+    this.searchHistory = window.localStorage['search-history']
+      ? JSON.parse(window.localStorage['search-history'])
+      : []
+    ;
 
-    this.set('filteredSearchHistory', []);
+    this.filteredSearchHistory = [];
   };
 
   classNames = ['labs-geosearch'];
@@ -87,18 +85,17 @@ export default class LabsSearchComponent extends Component {
   debouncedResults = task(function* (searchTerms) {
     this.send('filterSearchHistory', searchTerms);
     if (searchTerms.length < 2) {
-      this.set('currResults', this.filteredSearchHistory);
+      this.currResults = this.filteredSearchHistory;
       return;
     }
     yield timeout(DEBOUNCE_MS);
     const URL = this.endpoint;
 
-    this.set(
-      'loading',
+    this.loading = 
       new Promise(function (resolve) {
         setTimeout(resolve, 500);
-      })
-    );
+      });
+    
 
     const raw = yield fetch(URL);
     const resultList = yield raw.json();
@@ -110,11 +107,9 @@ export default class LabsSearchComponent extends Component {
       return mutatedResult;
     });
 
-    this.set(
-      'currResults',
-      this.filteredSearchHistory.concat(mergedWithTitles)
-    );
-    this.set('loading', null);
+    this.currResults =
+      this.filteredSearchHistory.concat(mergedWithTitles);
+    this.loading = null;
 
     return mergedWithTitles;
   }).keepLatest();
@@ -139,10 +134,10 @@ export default class LabsSearchComponent extends Component {
     const { keyCode } = event;
 
     const incSelected = () => {
-      this.set('selected', selected + 1);
+      this.selected = selected + 1;
     };
     const decSelected = () => {
-      this.set('selected', selected - 1);
+      this.selected = selected - 1;
     };
 
     if ([38, 40, 27].includes(keyCode)) {
@@ -172,7 +167,7 @@ export default class LabsSearchComponent extends Component {
   
   @action
   clear() {
-    this.set('searchTerms', '');
+    this.searchTerms = '';
     this.onClear();
   };
 
@@ -198,7 +193,7 @@ export default class LabsSearchComponent extends Component {
 
   @action
   handleFocusIn() {
-    this.set('_focused', true);
+    this._focused = true;
   };
 
   @action
@@ -208,7 +203,7 @@ export default class LabsSearchComponent extends Component {
 
   @action
   handleFocusOut() {
-    this.set('_focused', false);
+    this._focused = false;
   };
 
   @action
@@ -229,39 +224,33 @@ export default class LabsSearchComponent extends Component {
       const h = [...this.searchHistory].filter(
         (search) => search.label !== result.label
       );
-      this.set('searchHistory', [
+      this.searchHistory = [
         { ...result, typeTitle: 'Search History' },
         ...h,
-      ]);
+      ];
       this.send('saveSearchHistory');
     }
   };
 
   @action
   removeSearchFromSearchHistory(result) {
-    this.set(
-      'searchHistory',
+    this.searchHistory =
       [...this.searchHistory].filter(
         (search) => search.label !== result.label
-      )
-    );
+      );
     this.send('saveSearchHistory');
-    this.set(
-      'currResults',
-      [...this.currResults].filter((curr) => curr.label !== result.label)
-    );
+    this.currResults =
+      [...this.currResults].filter((curr) => curr.label !== result.label);
   };
 
   @action
   clearSearchHistory() {
-    this.set('searchHistory', []);
+    this.searchHistory = [];
     this.send('saveSearchHistory');
-    this.set(
-      'currResults',
-      [...this.currResults].filter(
+    this.currResults = [
+      ...this.currResults].filter(
         (search) => search.typeTitle !== 'Search History'
-      )
-    );
+      );
   };
 
   @action
@@ -272,7 +261,7 @@ export default class LabsSearchComponent extends Component {
           search.label.toUpperCase().includes(query.toUpperCase())
         )
         .slice(0, 5);
-      this.set('filteredSearchHistory', h);
+      this.filteredSearchHistory = h;
     }
   };
 };

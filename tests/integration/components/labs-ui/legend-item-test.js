@@ -29,8 +29,8 @@ module('Integration | Component | labs-ui/legend-item', function (hooks) {
       },
     });
 
-    await render(hbs`<Deprecated::LegendItem @item={{this.item}} />`);
-
+    await render(hbs`<LabsUi::LegendItem @item={{this.item}} />`);
+    console.log("Legend item inner html", this.element.innerHTML);
     assert.strictEqual(this.element.textContent.trim(), 'Foo');
   });
 });

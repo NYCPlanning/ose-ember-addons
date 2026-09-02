@@ -1,6 +1,7 @@
 import Service from '@ember/service';
 import { A } from '@ember/array';
 import { copy } from 'ember-copy';
+import { tracked } from '@glimmer/tracking';
 
 /**
   Layer Group aggregate service
@@ -11,13 +12,10 @@ import { copy } from 'ember-copy';
   @class LayerGroupService
 */
 export default class LayerGroupService extends Service {
-  init(...args) {
-    super.init(...args);
 
-    this.set('layerGroupRegistry', A([]));
-    this.set('visibleLayerGroups', A([]));
-  }
-
+  @tracked layerGroupRegistry = A([]);
+  @tracked visibleLayerGroups = A([]);
+  
   /**
     initializeObservers
     public
@@ -102,7 +100,7 @@ export default class LayerGroupService extends Service {
       .sort();
 
     // set the new param state object
-    this.set('visibleLayerGroups', newParams);
+    this.visibleLayerGroups = newParams;
   }
 
   // translate param state object to model state

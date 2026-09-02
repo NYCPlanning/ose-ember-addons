@@ -6,13 +6,13 @@ export default class LabsBblLookupComponent extends Component {
   constructor() {
     super(...arguments);
 
-    this.set('boroOptions', [
+    this.boroOptions = [
       { name: 'Manhattan (1)', code: '1' },
       { name: 'Bronx (2)', code: '2' },
       { name: 'Brooklyn (3)', code: '3' },
       { name: 'Queens (4)', code: '4' },
       { name: 'Staten Island (5)', code: '5' },
-    ]);
+    ];
   };
 
   classNames = ['bbl-lookup hide-for-print'];
@@ -46,11 +46,11 @@ export default class LabsBblLookupComponent extends Component {
     const validLot =
       lot !== '' && parseInt(lot, 10) < 10000 && parseInt(lot, 10) > 0;
 
-    this.set('validBlock', validBoro && validBlock);
-    this.set('validLot', validBoro && validBlock && validLot);
+    this.validBlock = validBoro && validBlock;
+    this.validLot = validBoro && validBlock && validLot;
 
     const submitText = validBlock && !validLot ? 'Go to Block' : 'Go to Lot';
-    this.set('submitText', submitText);
+    this.submitText = submitText;
   }
 
   @action
@@ -70,13 +70,13 @@ export default class LabsBblLookupComponent extends Component {
       )} AND boro = '${code}'`;
       carto.SQL(SQL, 'geojson').then((response) => {
         if (response.features[0]) {
-          this.set('errorMessage', '');
+          this.errorMessage = '';
           this.setProperties({
             closed: true,
           });
           this.onSuccess(response.features[0].geometry.coordinates, 16);
         } else {
-          this.set('errorMessage', 'The Block does not exist.');
+          this.errorMessage = 'The Block does not exist.';
         }
       });
     } else {
@@ -86,7 +86,7 @@ export default class LabsBblLookupComponent extends Component {
       )} AND lot = ${parseInt(lot, 10)} AND borocode = ${code}`;
       carto.SQL(SQL, 'geojson').then((response) => {
         if (response.features[0]) {
-          this.set('errorMessage', '');
+          this.errorMessage = '';
           this.setProperties({
             closed: true,
           });
@@ -98,7 +98,7 @@ export default class LabsBblLookupComponent extends Component {
             bblFeature.properties.bbl
           );
         } else {
-          this.set('errorMessage', 'The Lot does not exist.');
+          this.errorMessage = 'The Lot does not exist.';
         }
       });
     }
@@ -106,13 +106,13 @@ export default class LabsBblLookupComponent extends Component {
 
   @action
   setBorocode(option) {
-    this.set('boro', option);
+    this.boro = option;
     this.send('validate');
   };
 
   @action
   toggle() {
-    this.set('closed', !this.closed);
+    this.closed = !this.closed;
   };
   
 };

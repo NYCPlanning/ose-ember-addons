@@ -1286,16 +1286,6 @@
     ember-cli-version-checker "^5.1.2"
     semver "^7.3.5"
 
-"@embroider/addon-shim@^1.10.2":
-  version "1.10.3"
-  resolved "https://registry.yarnpkg.com/@embroider/addon-shim/-/addon-shim-1.10.3.tgz#562f488d5f1364170242722176feba1622305fc2"
-  integrity sha512-GYbaiC1v9inbiwVg5s+Sd14Jc66NYxg23mEOocgWAZFCtOfhMnRLaLAA6SytW76myVVYImGHX5PFK4PVuH2yng==
-  dependencies:
-    "@embroider/shared-internals" "^3.1.1"
-    broccoli-funnel "^3.0.8"
-    common-ancestor-path "^1.0.1"
-    semver "^7.3.8"
-
 "@embroider/addon-shim@^1.8.4":
   version "1.8.6"
   resolved "https://registry.yarnpkg.com/@embroider/addon-shim/-/addon-shim-1.8.6.tgz#b676991b4fa32c3a98dc7db7dc6cd655029c3f09"
@@ -1344,25 +1334,6 @@
     js-string-escape "^1.0.1"
     lodash "^4.17.21"
     resolve-package-path "^4.0.1"
-    semver "^7.3.5"
-    typescript-memoize "^1.0.1"
-
-"@embroider/shared-internals@^3.1.1":
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/@embroider/shared-internals/-/shared-internals-3.1.1.tgz#d29487c3ddecb9f03e3df420f38b7f6e50f5163f"
-  integrity sha512-IlxD8okTt9cRUFpJKD8gTuQUBuEflrhCUju1xZFdYvmGm5XVqHPfG4I6+bEdKb8NO92aqHxr9SYuYibDmpMM9w==
-  dependencies:
-    babel-import-util "^3.0.1"
-    debug "^4.3.2"
-    ember-rfc176-data "^0.3.17"
-    fs-extra "^9.1.0"
-    is-subdir "^1.2.0"
-    js-string-escape "^1.0.1"
-    lodash "^4.17.21"
-    minimatch "^3.0.4"
-    pkg-entry-points "^1.1.1"
-    resolve-package-path "^4.0.1"
-    resolve.exports "^2.0.2"
     semver "^7.3.5"
     typescript-memoize "^1.0.1"
 
@@ -1503,14 +1474,6 @@
     ember-cli-typescript "3.0.0"
     ember-cli-version-checker "^3.1.3"
     ember-compatibility-helpers "^1.1.2"
-
-"@glimmer/component@^2.1.1":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@glimmer/component/-/component-2.1.1.tgz#aa80876d601a1639655ffd10a54229f8de07bdd9"
-  integrity sha512-zFZFaMbWy+9WOcDg/kCgrkGgqkLT39EE4FgyFD0MIkQO5coQsrRZyLsiBu1tbchyM+8hT8jAv+EQVUd8u+MdSQ==
-  dependencies:
-    "@embroider/addon-shim" "^1.10.2"
-    "@glimmer/env" "0.1.7"
 
 "@glimmer/di@^0.1.9":
   version "0.1.11"
@@ -3133,11 +3096,6 @@ babel-import-util@^2.0.0:
   resolved "https://registry.yarnpkg.com/babel-import-util/-/babel-import-util-2.0.0.tgz#99a2e7424bcde01898bc61bb19700ff4c74379a3"
   integrity sha512-pkWynbLwru0RZmA9iKeQL63+CkkW0RCP3kL5njCtudd6YPUKb5Pa0kL4fb3bmuKn2QDBFwY5mvvhEK/+jv2Ynw==
 
-babel-import-util@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/babel-import-util/-/babel-import-util-3.0.1.tgz#62dd0476e855bf57522e1d0027916dc0c0b0fdb2"
-  integrity sha512-2copPaWQFUrzooJVIVZA/Oppx/S/KOoZ4Uhr+XWEQDMZ8Rvq/0SNQpbdIyMBJ8IELWt10dewuJw+tX4XjOo7Rg==
-
 babel-loader@^8.0.6:
   version "8.3.0"
   resolved "https://registry.yarnpkg.com/babel-loader/-/babel-loader-8.3.0.tgz#124936e841ba4fe8176786d6ff28add1f134d6a8"
@@ -3386,13 +3344,6 @@ bcrypt-pbkdf@^1.0.0:
   integrity sha512-qeFIXtP4MSoi6NLqO12WfqARWWuCKi2Rn/9hJLEmtB5yTNr9DqFWkJRCf2qShWzPeAMRnOgCrq0sg/KLv5ES9w==
   dependencies:
     tweetnacl "^0.14.3"
-
-better-path-resolve@1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/better-path-resolve/-/better-path-resolve-1.0.0.tgz#13a35a1104cdd48a7b74bf8758f96a1ee613f99d"
-  integrity sha512-pbnl5XzGBdrFU/wT4jqmJVPn2B6UHPBOhzMQkY/SPUPB6QtUXtmBHBIwCbXJol93mOpGMnQyP/+BB19q04xj7g==
-  dependencies:
-    is-windows "^1.0.0"
 
 big.js@^5.2.2:
   version "5.2.2"
@@ -4925,11 +4876,6 @@ commander@^8.3.0:
   version "8.3.0"
   resolved "https://registry.yarnpkg.com/commander/-/commander-8.3.0.tgz#4837ea1b2da67b9c616a67afbb0fafee567bca66"
   integrity sha512-OkTL9umf+He2DZkUq8f8J9of7yL6RJKI24dVITBmNfZBmri9zYZQrKkuXiKhyfPSu8tUhnVBB1iKXevvnlR4Ww==
-
-common-ancestor-path@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/common-ancestor-path/-/common-ancestor-path-1.0.1.tgz#4f7d2d1394d91b7abdf51871c62f71eadb0182a7"
-  integrity sha512-L3sHRo1pXXEqX8VU28kfgUY+YGsk09hPqZiZmLacNib6XNTCM8ubYeT7ryXQw8asB1sKgcU5lkB7ONug08aB8w==
 
 common-tags@^1.8.0:
   version "1.8.2"
@@ -9411,13 +9357,6 @@ is-string@^1.0.5, is-string@^1.0.7:
   dependencies:
     has-tostringtag "^1.0.0"
 
-is-subdir@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/is-subdir/-/is-subdir-1.2.0.tgz#b791cd28fab5202e91a08280d51d9d7254fd20d4"
-  integrity sha512-2AT6j+gXe/1ueqbW6fLZJiIw3F8iXGJtt0yDrZaBhAZEG1raiTxKWU+IPqMCzQAXOUCKdA4UDMgacKH25XG2Cw==
-  dependencies:
-    better-path-resolve "1.0.0"
-
 is-symbol@^1.0.2, is-symbol@^1.0.3:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/is-symbol/-/is-symbol-1.0.4.tgz#a6dac93b635b063ca6872236de88910a57af139c"
@@ -9456,7 +9395,7 @@ is-weakref@^1.0.2:
   dependencies:
     call-bind "^1.0.2"
 
-is-windows@^1.0.0, is-windows@^1.0.1, is-windows@^1.0.2:
+is-windows@^1.0.1, is-windows@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/is-windows/-/is-windows-1.0.2.tgz#d1850eb9791ecd18e6182ce12a30f396634bb19d"
   integrity sha512-eXK1UInq2bPmjyX6e3VHIzMLobc4J94i4AWn+Hpq3OU5KkrRC96OAcR3PRJ/pGu6m8TRnBHP9dkXQVsT/COVIA==
@@ -12107,11 +12046,6 @@ pkg-dir@^4.1.0:
   dependencies:
     find-up "^4.0.0"
 
-pkg-entry-points@^1.1.1:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/pkg-entry-points/-/pkg-entry-points-1.1.2.tgz#82f259db7db02e0d1bebfb1b6610fb4983952f66"
-  integrity sha512-bmmM+SdLXNNetFr4o53QiiZRZicls2apmzj8HRpo4bU+3nJHiPO/omv8TXHIOzTcirua3YBAwTlKE+7zkICh4g==
-
 pkg-up@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/pkg-up/-/pkg-up-2.0.0.tgz#c819ac728059a461cab1c3889a2be3c49a004d7f"
@@ -13046,11 +12980,6 @@ resolve-url@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/resolve-url/-/resolve-url-0.2.1.tgz#2c637fe77c893afd2a663fe21aa9080068e2052a"
   integrity sha512-ZuF55hVUQaaczgOIwqWzkEcEidmlD/xl44x1UZnhOXcYuFN2S6+rcxpG+C1N3So0wvNI3DmJICUFfu2SxhBmvg==
-
-resolve.exports@^2.0.2:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/resolve.exports/-/resolve.exports-2.0.3.tgz#41955e6f1b4013b7586f873749a635dea07ebe3f"
-  integrity sha512-OcXjMsGdhL4XnbShKpAcSqPMzQoYkYyhbEaeSko47MjRP9NfEQMhZkXL1DoFlt9LWQn4YttrdnV6X2OiyzBi+A==
 
 resolve@^1.10.0, resolve@^1.10.1, resolve@^1.11.1, resolve@^1.13.1, resolve@^1.14.2, resolve@^1.17.0, resolve@^1.20.0, resolve@^1.22.0, resolve@^1.22.1, resolve@^1.3.3, resolve@^1.4.0, resolve@^1.5.0:
   version "1.22.2"

@@ -8,8 +8,9 @@ module('Integration | Component | layer-group-toggle', function (hooks) {
 
   test('it opens and closes on click', async function (assert) {
     await render(
-      hbs`<Deprecated::LayerGroupToggle @label="Foo" @active={{true}} >Bar</Deprecated::LayerGroupToggle>`
+      hbs`<Deprecated::LayerGroupToggle @label="Foo" @active={{true}} >Bsdfdsdsar</Deprecated::LayerGroupToggle>`
     );
+    console.log('RENDERED HTML:', this.element.innerHTML);
     await click('.layer-group-toggle-label');
     const content = find('.layer-group-toggle-content');
     assert.false(!!content);

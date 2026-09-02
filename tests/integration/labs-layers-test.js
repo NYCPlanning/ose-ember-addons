@@ -47,15 +47,15 @@ module(
         })
       );
 
-      this.set('map', this.map);
-      this.set('model', {
+      this.map = this.map;
+      this.model = {
         sources: [],
         layerGroups: [
           {
             layers: [this.layer],
           },
         ],
-      });
+      };
 
       await render(hbs`{{labs-layers layerGroups=model.layerGroups map=map}}`);
 
@@ -105,14 +105,14 @@ module(
         })
       );
 
-      this.set('map', this.map);
-      this.set('model', {
+      this.map = this.map;
+      this.model = {
         layerGroups: [
           {
             layers: ArrayProxy.create({ content: [this.layer] }),
           },
         ],
-      });
+      };
 
       await render(
         hbs`<LabsLayers @layerGroups={{this.model.layerGroups}} @map={{this.map}} />`
@@ -172,14 +172,14 @@ module(
 
       this.layer = store.peekRecord('layer', 'test-layer');
 
-      this.set('map', this.map);
-      this.set('model', {
+      this.map = this.map;
+      this.model = {
         layerGroups: [
           {
             layers: ArrayProxy.create({ content: [this.layer] }),
           },
         ],
-      });
+      };
 
       await render(
         hbs`<LabsLayers @layerGroups={{this.model.layerGroups}} @map={{this.map}} />`

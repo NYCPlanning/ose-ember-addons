@@ -9,7 +9,7 @@ export default class LayerGroupsContainerComponent extends Component {
   constructor(...args) {
     super(...args);
 
-    this.set('layerGroupToggleItems', A([]));
+    this.layerGroupToggleItems = A([]);
   };
 
   layout = layout;
