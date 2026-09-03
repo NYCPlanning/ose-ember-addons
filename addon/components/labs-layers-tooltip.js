@@ -1,6 +1,6 @@
 import Component from '@glimmer/component';
-import { computed } from '@ember/object';
 import { htmlSafe } from '@ember/template';
+import { tracked } from '@glimmer/tracking';
 
 /**
   Renders a component when a "tooltipable" layer is hovered. 
@@ -55,20 +55,17 @@ import { htmlSafe } from '@ember/template';
   @public
 */
 export default class LabsLayersTooltipComponent extends Component {
-  constructor(...args) {
-    super(...args);
-  }
-  
-  style = computed('mousePosition', 'offset', function () {
-    const { y: top, x: left } = this.mousePosition;
-    const offset = this.offset;
 
+  get style() {
+    const top = this.args.mousePosition.y
+    const left = this.args.mousePosition.x
     return htmlSafe(`
-      top: ${top + offset}px; 
-      left: ${left + offset}px; 
+      top: ${top + this.offset}px;
+      left: ${left + this.offset}px;
       pointer-events: none;
-    `);
-  });
+    `
+  );
+  };
 
   /**
     Offset of tooltip div element in pixels.
@@ -77,25 +74,11 @@ export default class LabsLayersTooltipComponent extends Component {
   */
   offset = 20;
 
-  /**
-    Top offset of tooltip div in pixels.
-    @argument top
-    @type Number
-  */
-  top = 1000;
-
-  /**
-    Left offset of tooltip div in pixels.
-    @argument left
-    @type Number
-  */
-  left = 0;
-
-  /**
-    Native mousePosition object that is passed from labs-layers
-    @type Object
-    @private
-  **/
+  // /**
+  //   Native mousePosition object that is passed from labs-layers
+  //   @type Object
+  //   @private
+  // **/
   mousePosition = null;
 
   /**
