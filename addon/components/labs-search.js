@@ -1,135 +1,148 @@
 import Component from '@glimmer/component';
-import { computed } from '@ember/object'; // eslint-disable-line
-import { timeout, task } from 'ember-concurrency';
+import { timeout, keepLatestTask } from 'ember-concurrency';
 import { getOwner } from '@ember/application';
 import { Promise } from 'rsvp';
 import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 
 const DEBOUNCE_MS = 100;
 
 export default class LabsSearchComponent extends Component {
+  @tracked currResults = [];
+  @tracked searchHistory = [];
+  @tracked filteredSearchHistory = [];
+  @tracked searchTerms = '';
+  @tracked selected = 0;
+  @tracked _focused = false;
+  @tracked loading = null;
+
+  get useSearchHistory() { return this.args.useSearchHistory ?? false; }
+  get searchPlaceholder() { return this.args.searchPlaceholder ?? 'Search...'; }
+
+  get onSelect() { return this.args.onSelect || (() => {}); }
+  get onHoverResult() { return this.args.onHoverResult || (() => {}); }
+  get onHoverOut() { return this.args.onHoverOut || (() => {}); }
+  get onClear() { return this.args.onClear || (() => {}); }
+
+  typeTitleLookup = { lot: 'Lot' };
+  host = 'https://search-api-production.herokuapp.com';
+  route = 'search';
+  helpers = ['geosearch', 'city-map-street-search', 'city-map-alteration'];
+
   constructor() {
     super(...arguments);
 
+    const config = getOwner(this).resolveRegistration('config:environment');
     const {
-      host = 'https://search-api-production.herokuapp.com',
-      route = 'search',
-      helpers = ['geosearch', 'city-map-street-search', 'city-map-alteration'],
-    } = getOwner(this).resolveRegistration('config:environment')[
-      'labs-search'
-    ] || {};
+      host = this.host,
+      route = this.route,
+      helpers = this.helpers,
+    } = config?.['labs-search'] || {};
 
-    this.setProperties({
-      typeTitleLookup: {
-        lot: 'Lot',
-      },
-      currResults: [],
-      host: host,
-      route: route,
-      helpers: helpers,
-    });
+    this.host = host;
+    this.route = route;
+    this.helpers = helpers;
 
-    this.searchHistory = window.localStorage['search-history']
-      ? JSON.parse(window.localStorage['search-history'])
+    this.searchHistory = window.localStorage.getItem('search-history')
+      ? JSON.parse(window.localStorage.getItem('search-history'))
       : []
     ;
-
-    this.filteredSearchHistory = [];
   };
 
-  classNames = ['labs-geosearch'];
+  // classNames = ['labs-geosearch'];
 
-  onSelect() {};
+  get results() {
+    return this.debouncedResults.perform(this.searchTerms);
+  }
 
-  onHoverResult() {};
+  // resultsCount = computed('results.value', function () {
+  //   const results = this.get('results.value');
+  //   if (results) return results.length;
+  //   return 0;
+  // });
 
-  onHoverOut() {};
+  get resultsCount() {
+    const resultsVal = this.debouncedResults.lastSuccessful?.value || [];
+    return resultsVal.length;
+  }
 
-  onClear() {};
+  // endpoint =computed('helpers', 'host', 'route', 'searchTerms', function () {
+  //   const searchTerms = this.searchTerms;
+  //   const host = this.host;
+  //   const route = this.route;
+  //   const helpers = this.helpers
+  //     .map((string) => `helpers[]=${string}&`)
+  //     .join('');
 
-  results = computed('debouncedResults', 'searchTerms', function () {
-    const searchTerms = this.searchTerms;
+  //   return `${host}/${route}?${helpers}q=${searchTerms}`;
+  // });
 
-    return this.debouncedResults.perform(searchTerms);
-  });
+  get endpoint() {
+    const helpers = this.helpers.map((string) => `helpers[]=${string}&`).join('');
+    return `${this.host}/${this.route}?${helpers}q=${this.searchTerms}`;
+  }
 
-  resultsCount = computed('results.value', function () {
-    const results = this.get('results.value');
-    if (results) return results.length;
-    return 0;
-  });
-
-  endpoint =computed('helpers', 'host', 'route', 'searchTerms', function () {
-    const searchTerms = this.searchTerms;
-    const host = this.host;
-    const route = this.route;
-    const helpers = this.helpers
-      .map((string) => `helpers[]=${string}&`)
-      .join('');
-
-    return `${host}/${route}?${helpers}q=${searchTerms}`;
-  });
-
-  host = 'https://search-api-production.herokuapp.com';
-  route = 'search';
-
-  useSearchHistory = false;
-
-  searchPlaceholder = 'Search...';
-  searchTerms = '';
-  selected = 0;
-  _focused = false;
-
-  loading = null;
-
-  debouncedResults = task(function* (searchTerms) {
-    this.send('filterSearchHistory', searchTerms);
+  @keepLatestTask
+  *debouncedResults(searchTerms) {
+    this.filterSearchHistory(searchTerms);
+    
     if (searchTerms.length < 2) {
       this.currResults = this.filteredSearchHistory;
       return;
     }
+
     yield timeout(DEBOUNCE_MS);
     const URL = this.endpoint;
 
     this.loading = 
-      new Promise(function (resolve) {
-        setTimeout(resolve, 500);
-      });
+      new Promise((resolve) =>
+        setTimeout(resolve, 500)
+      );
     
 
-    const raw = yield fetch(URL);
-    const resultList = yield raw.json();
-    const mergedWithTitles = resultList.map((result, index) => {
-      const mutatedResult = result;
-      mutatedResult.id = index;
-      mutatedResult.typeTitle =
-        this.get(`typeTitleLookup.${result.type}`) || 'Result';
-      return mutatedResult;
-    });
+    try {
+      const raw = yield fetch(URL);
+      const resultList = yield raw.json();
 
-    this.currResults =
-      this.filteredSearchHistory.concat(mergedWithTitles);
-    this.loading = null;
+      const mergedWithTitles = resultList.map((result, index) => {
+        const mutatedResult = result;
+        mutatedResult.id = index;
+        mutatedResult.typeTitle =
+          this.typeTitleLookup[result.type] || 'Result';
+        return mutatedResult;
+      });
 
-    return mergedWithTitles;
-  }).keepLatest();
+      this.currResults =
+        this.filteredSearchHistory.concat(mergedWithTitles);
+      this.loading = null;
 
-  keyPress(event) {
-    const selected = this.selected;
+      return mergedWithTitles;
+    } catch(e) {
+      console.error('Error fetching search results', e);
+      this.loading = null;
+      return [];
+    } finally {
+      this.loading = null;
+    }
+  };
+
+  @action
+  handleKeyPress(event) {
     const { keyCode } = event;
 
     // enter
     if (keyCode === 13) {
-      const results = this.get('results.value');
-      if (results && results.get('length')) {
-        const selectedResult = results.objectAt(selected);
-        this.send('goTo', selectedResult);
+      const results = this.results.value;
+      if (this.results && this.results.length > 0) {
+        const selectedResult = this.results.objectAt(this.selected);
+        this.goTo(selectedResult);
       }
     }
   };
 
-  keyUp(event) {
-    const selected = this.selected;
+  @action
+  handleKeyUp(event) {
+    // const selected = this.selected;
     const resultsCount = this.resultsCount;
     const { keyCode } = event;
 
@@ -141,26 +154,26 @@ export default class LabsSearchComponent extends Component {
     };
 
     if ([38, 40, 27].includes(keyCode)) {
-      const results = this.get('results.value');
+      const results = this.results.value;
 
       // up
       if (keyCode === 38) {
         if (results) {
-          if (selected > 0) decSelected();
+          if (this.selected > 0) decSelected();
         }
       }
 
       // down
       if (keyCode === 40) {
         if (results) {
-          if (selected < resultsCount - 1) incSelected();
+          if (this.selected < resultsCount - 1) incSelected();
         }
       }
 
       // escape
       if (keyCode === 27) {
-        this.send('clear');
-        this.send('handleFocusOut');
+        this.clear();
+        this.handleFocusOut();
       }
     }
   };
@@ -173,20 +186,17 @@ export default class LabsSearchComponent extends Component {
 
   @action
   goTo(result) {
-    this.send('addSearchToSearchHistory', result);
+    this.addSearchToSearchHistory(result);
+
     const el = document.querySelector('.map-search-input');
-    const event = document.createEvent('HTMLEvents');
-    event.initEvent('blur', true, false);
-    el.dispatchEvent(event);
+    if (el) el.blur();
 
     result.searchQuery = this.searchTerms;
 
-    this.setProperties({
-      selected: 0,
-      searchTerms: result.label,
-      _focused: false,
-      currResults: [],
-    });
+    this.selected = 0;
+    this.searchTerms = result.label;
+    this._focused = false;
+    this.currResults = [];
 
     this.onSelect(result);
   };
@@ -211,14 +221,12 @@ export default class LabsSearchComponent extends Component {
     this.onHoverOut();
   };
 
-  @action
   saveSearchHistory() {
-    window.localStorage['search-history'] = JSON.stringify(
+    window.localStorage.setItem('search-history', JSON.stringify(
       this.searchHistory.slice(0, 100)
-    );
+    ));
   };
 
-  @action
   addSearchToSearchHistory(result) {
     if (this.useSearchHistory) {
       const h = [...this.searchHistory].filter(
@@ -228,27 +236,26 @@ export default class LabsSearchComponent extends Component {
         { ...result, typeTitle: 'Search History' },
         ...h,
       ];
-      this.send('saveSearchHistory');
+      this.saveSearchHistory();
     }
   };
 
   @action
   removeSearchFromSearchHistory(result) {
     this.searchHistory =
-      [...this.searchHistory].filter(
+      this.searchHistory.filter(
         (search) => search.label !== result.label
       );
-    this.send('saveSearchHistory');
+    this.saveSearchHistory();
     this.currResults =
-      [...this.currResults].filter((curr) => curr.label !== result.label);
+      this.currResults.filter((curr) => curr.label !== result.label);
   };
 
   @action
   clearSearchHistory() {
     this.searchHistory = [];
-    this.send('saveSearchHistory');
-    this.currResults = [
-      ...this.currResults].filter(
+    this.saveSearchHistory();
+    this.currResults = this.currResults.filter(
         (search) => search.typeTitle !== 'Search History'
       );
   };
@@ -256,12 +263,11 @@ export default class LabsSearchComponent extends Component {
   @action
   filterSearchHistory(query) {
     if (this.useSearchHistory) {
-      const h = [...this.searchHistory]
+      this.filteredSearchHistory = this.searchHistory
         .filter((search) =>
           search.label.toUpperCase().includes(query.toUpperCase())
         )
         .slice(0, 5);
-      this.filteredSearchHistory = h;
     }
   };
 };

@@ -1,7 +1,6 @@
 import Component from '@glimmer/component';
 import { computed, get } from '@ember/object';
 import turfUnion from '@turf/union';
-import ArrayProxy from '@ember/array/proxy';
 import { warn } from '@ember/debug';
 import { action } from '@ember/object';
 
@@ -121,39 +120,38 @@ export default class LabsLayersComponent extends Component {
 
   hoveredFeature = null;
 
-  hoveredLayer = computed('hoveredFeature', 'layers', function () {
+  get hoveredLayer() {
     const feature = this.hoveredFeature;
-
     if (feature) {
-      return this.layers.findBy('id', feature.layer.id);
+      // Use standard native array methods (.find) instead of legacy .findBy()
+      return this.layers.find(layer => layer.id === feature.layer.id);
     }
-
     return null;
-  });
+  }
 
   @computed('layerGroups.@each.layers')
   get layers() {
-    if (!this.layerGroups) return ArrayProxy.create({ content: [] });
+    if (!this.layerGroups) return  [];
     
-    return ArrayProxy.create({
-      content: this.layerGroups
+    const la =   this.layerGroups
         .map((layerGroup) => get(layerGroup, 'layers'))
         .reduce((accumulator, current) => {
           const layers = current.toArray();
           return [...accumulator, ...layers];
-        }, []),
-    });
+        }, []);
+
+    return la;
   }
 
-  interactiveLayerIds =computed('layers.@each.visibility', function () {
-    return this.layers
-      .filterBy('visibility', true)
-      .filter(
+  get interactiveLayerIds() {
+    const layers = this.layers.filter((layer) => layer.visbility === true)
+    .filter(
         ({ highlightable, tooltipable, clickable }) =>
           highlightable || tooltipable || clickable
       )
       .map((layer) => layer.get('id'));
-  });
+      return layers;
+  }
 
   mousePosition = null;
 
@@ -221,6 +219,7 @@ export default class LabsLayersComponent extends Component {
   async handleLayerMouseMove(e) {
     // only query the visible layers
     const layerIds = this.interactiveLayerIds;
+    if (!layerIds || layerIds.length === 0) return;
     const [feature] = this.map.queryRenderedFeatures(e.point, {
       layers: layerIds,
     });
