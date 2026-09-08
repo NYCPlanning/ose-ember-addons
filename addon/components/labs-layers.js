@@ -61,7 +61,9 @@ export default class LabsLayersComponent extends Component {
     @private
     @type MapboxGL Map Instance
   */
-  map = null
+  get map() {
+    return this.args.map;
+  } 
 
   /**
     Whether layergroups should have interactivity (highlighting and clicking).  Useful for temporarily disabling interactivity during drawing mode.
@@ -69,14 +71,18 @@ export default class LabsLayersComponent extends Component {
     @argument interactivity
     @type boolean
   */
-  interactivity = true;
+  get interactivity() {
+    return this.args.interactivity !== undefined ? this.args.interactivity : true;
+  }
 
   /**
     Collection of layer-group objects
     @argument layerGroups
     @type Array
   */
-  layerGroups = null;
+  get layerGroups() {
+    return this.args.layerGroups;
+  }
 
   /**
     Event fired on layer click. Scoped to individual layers. Returns the mouse event and clicked layer.
@@ -125,17 +131,19 @@ export default class LabsLayersComponent extends Component {
     return null;
   });
 
-  layers = computed('layerGroups.@each.layers', function () {
+  @computed('layerGroups.@each.layers')
+  get layers() {
+    if (!this.layerGroups) return ArrayProxy.create({ content: [] });
+    
     return ArrayProxy.create({
-      content: this.get('layerGroups')
+      content: this.layerGroups
         .map((layerGroup) => get(layerGroup, 'layers'))
         .reduce((accumulator, current) => {
           const layers = current.toArray();
-
           return [...accumulator, ...layers];
         }, []),
     });
-  });
+  }
 
   interactiveLayerIds =computed('layers.@each.visibility', function () {
     return this.layers
