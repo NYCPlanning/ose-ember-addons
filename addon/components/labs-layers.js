@@ -3,6 +3,7 @@ import { computed, get } from '@ember/object';
 import turfUnion from '@turf/union';
 import { warn } from '@ember/debug';
 import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 
 /**
   Renders a collection of Mapbox Composer-compatible layer groups.
@@ -118,7 +119,7 @@ export default class LabsLayersComponent extends Component {
   */
   toolTipComponent = 'labs-layers-tooltip';
 
-  hoveredFeature = null;
+  @tracked hoveredFeature = null;
 
   get hoveredLayer() {
     const feature = this.hoveredFeature;
@@ -144,16 +145,16 @@ export default class LabsLayersComponent extends Component {
   }
 
   get interactiveLayerIds() {
-    const layers = this.layers.filter((layer) => layer.visbility === true)
+    const layers = this.layers.filter((layer) => layer.visibility === true)
     .filter(
         ({ highlightable, tooltipable, clickable }) =>
           highlightable || tooltipable || clickable
       )
-      .map((layer) => layer.get('id'));
+      .map((layer) => layer.id);
       return layers;
   }
 
-  mousePosition = null;
+  @tracked mousePosition = null;
 
   stitchHoveredTiles(feature) {
     const map = this.map;
@@ -204,7 +205,7 @@ export default class LabsLayersComponent extends Component {
     } = e;
     const interactivity = this.interactivity;
 
-    const foundLayer = this.layers.findBy('id', feature.layer.id);
+    const foundLayer = this.layers.find((layer) => layer.id === feature.layer.id);
     const layerClickEvent = this.onLayerClick;
 
     if (layerClickEvent && feature && interactivity) {
@@ -228,15 +229,14 @@ export default class LabsLayersComponent extends Component {
     const map = this.map;
     const interactivity = this.interactivity;
 
-    const foundLayer = this.layers.findBy('id', feature.layer.id);
+    const foundLayer = this.layers.find(layer => layer.id === feature.layer.id);
 
     // this layer-specific event should always be called
     // if it's available
     const mouseMoveEvent = this.onLayerMouseMove;
     mouseMoveEvent(e, foundLayer);
 
-    const { highlightable, tooltipable, clickable } =
-      foundLayer.getProperties('highlightable', 'tooltipable', 'clickable');
+    const { highlightable, tooltipable, clickable } = foundLayer;
 
     if (clickable) {
       map.getCanvas().style.cursor = 'pointer';
@@ -304,10 +304,8 @@ export default class LabsLayersComponent extends Component {
     const map = this.map;
     this.hoveredFeature = null;
     map.getCanvas().style.cursor = '';
-    this.setProperties({
-      hoveredFeature: null,
-      mousePosition: null,
-    });
+    this.hoveredFeature = null;
+    this.mousePosition = null;
 
     map.setLayoutProperty('highlighted-feature-circle', 'visibility', 'none');
     map.setLayoutProperty('highlighted-feature-line', 'visibility', 'none');

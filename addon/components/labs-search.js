@@ -49,8 +49,6 @@ export default class LabsSearchComponent extends Component {
     ;
   };
 
-  // classNames = ['labs-geosearch'];
-
   get results() {
     return this.debouncedResults.perform(this.searchTerms);
   }

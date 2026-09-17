@@ -74,12 +74,14 @@ export default class LabsLayersTooltipComponent extends Component {
   */
   offset = 20;
 
-  // /**
-  //   Native mousePosition object that is passed from labs-layers
-  //   @type Object
-  //   @private
-  // **/
-  mousePosition = null;
+  /**
+    Native mousePosition object that is passed from labs-layers
+    @type Object
+    @private
+  **/
+  get mousePosition() {
+    return this.args.mousePosition || null;
+  };
 
   /**
     Geographic feature of the layer that is hovered when onLayerMouseMove is fired.
@@ -87,7 +89,9 @@ export default class LabsLayersTooltipComponent extends Component {
     @type Object
     @private
   */
-  feature = null;
+  get feature() {
+    return this.args.feature || null;
+  }
 
   /**
     Layer that is hovered when onLayerMouseMove is fired.
@@ -95,5 +99,7 @@ export default class LabsLayersTooltipComponent extends Component {
     @type Object
     @private
   */
-  layer = null;
+  get layer() {
+    return this.args.layer || null;
+  }
 };
