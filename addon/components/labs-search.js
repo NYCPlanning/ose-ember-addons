@@ -50,7 +50,7 @@ export default class LabsSearchComponent extends Component {
   };
 
   get results() {
-    return this.debouncedResults.perform(this.searchTerms);
+    return this.debouncedResults.lastSuccessful?.value || [];
   }
 
   // resultsCount = computed('results.value', function () {
@@ -100,6 +100,7 @@ export default class LabsSearchComponent extends Component {
 
     try {
       const raw = yield fetch(URL);
+      console.log("raw", raw);
       const resultList = yield raw.json();
 
       const mergedWithTitles = resultList.map((result, index) => {
@@ -126,45 +127,46 @@ export default class LabsSearchComponent extends Component {
 
   @action
   handleKeyPress(event) {
+    const selected = this.selected;
+    console.log("on handleKeyPress");
     const { keyCode } = event;
 
     // enter
     if (keyCode === 13) {
       const results = this.results.value;
-      if (this.results && this.results.length > 0) {
-        const selectedResult = this.results.objectAt(this.selected);
+      if (results && results.length > 0) {
+        const selectedResult = results[selected];
         this.goTo(selectedResult);
       }
     }
   };
 
   @action
+  handleInput(event){
+    this.searchTerms = event.target.value;
+    this.debouncedResults.perform(this.searchTerms);
+  }
+
+  @action
   handleKeyUp(event) {
-    // const selected = this.selected;
+        console.log("on handleKeyUp");
+
+    const selected = this.selected;
     const resultsCount = this.resultsCount;
     const { keyCode } = event;
 
-    const incSelected = () => {
-      this.selected = selected + 1;
-    };
-    const decSelected = () => {
-      this.selected = selected - 1;
-    };
-
     if ([38, 40, 27].includes(keyCode)) {
-      const results = this.results.value;
-
       // up
       if (keyCode === 38) {
-        if (results) {
-          if (this.selected > 0) decSelected();
+        if (this.results) {
+          if (selected > 0) this.selected = selected - 1;
         }
       }
 
       // down
       if (keyCode === 40) {
-        if (results) {
-          if (this.selected < resultsCount - 1) incSelected();
+        if (this.results) {
+          if (selected < resultsCount - 1) this.selected = selected + 1;
         }
       }
 
