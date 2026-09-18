@@ -1,7 +1,16 @@
 <div class="labs-geosearch" ...attributes>
-  <Input @type='text' placeholder={{this.searchPlaceholder}} class='map-search-input' id="map-search-input"
-    @value={{this.searchTerms}} {{on 'focus' this.handleFocusIn}} {{on 'blur' this.handleFocusOut}} autocomplete="off"
-    onkeyup={{this.handleKeyUp}} onkeypress={{this.handleKeyPress}} />
+  <Input 
+    @type='text' 
+    placeholder={{this.searchPlaceholder}} 
+    class='map-search-input' 
+    id="map-search-input"
+    value={{this.searchTerms}} 
+    {{on 'input' this.handleInput}} 
+    {{on 'focus' this.handleFocusIn}} 
+    {{on 'blur' this.handleFocusOut}} autocomplete="off"
+    onkeyup={{this.handleKeyUp}} 
+    onkeypress={{this.handleKeyPress}} 
+  />
   <label class="show-for-sr" for="map-search-input">Search the map</label>
 
   {{#if this.searchTerms}}
@@ -61,7 +70,7 @@
     {{/each-in}}
   </ul>
 
-  {{#if (and this.searchTerms (not this.resultsCount) (this.is-fulfilled this.results))}}
+  {{#if (and (gt this.searchTerms.length 1) (not this.resultsCount) (not this.debouncedResults.isRunning))}}
   <div class="search-results--loading">No Results Found</div>
   {{/if}}
 </div>

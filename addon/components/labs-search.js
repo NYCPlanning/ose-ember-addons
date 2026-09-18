@@ -100,7 +100,6 @@ export default class LabsSearchComponent extends Component {
 
     try {
       const raw = yield fetch(URL);
-      console.log("raw", raw);
       const resultList = yield raw.json();
 
       const mergedWithTitles = resultList.map((result, index) => {
@@ -128,14 +127,12 @@ export default class LabsSearchComponent extends Component {
   @action
   handleKeyPress(event) {
     const selected = this.selected;
-    console.log("on handleKeyPress");
     const { keyCode } = event;
 
     // enter
     if (keyCode === 13) {
-      const results = this.results.value;
-      if (results && results.length > 0) {
-        const selectedResult = results[selected];
+      if (this.results && thhis.results.length > 0) {
+        const selectedResult = this.results[selected];
         this.goTo(selectedResult);
       }
     }
@@ -149,8 +146,6 @@ export default class LabsSearchComponent extends Component {
 
   @action
   handleKeyUp(event) {
-        console.log("on handleKeyUp");
-
     const selected = this.selected;
     const resultsCount = this.resultsCount;
     const { keyCode } = event;
