@@ -27,5 +27,7 @@ import Component from '@glimmer/component';
 export default class NeedsAsyncComponent extends Component {
   tagName = '';
 
-  needs = null;
+  get needs() {
+    return this.args.needs;
+  }
 }

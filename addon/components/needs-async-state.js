@@ -1,13 +1,10 @@
 import Component from '@glimmer/component';
-import { computed, get } from '@ember/object';
+import { get } from '@ember/object';
 
 export default class NeedAsyncStateComponent extends Component {
   tagName = '';
-  isState = computed(
-    'taskInstance.{isRunning,value,error}',
-    'state',
-    function () {
-      return this.taskInstance && !!get(this.taskInstance, this.state);
-    }
-  );
+
+  get isState() {
+    return this.args.taskInstance && !!get(this.args.taskInstance, this.args.state);
+  }
 };
