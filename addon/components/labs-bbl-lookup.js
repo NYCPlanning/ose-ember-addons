@@ -1,8 +1,21 @@
 import Component from '@glimmer/component';
 import carto from '@nycplanning/ember/utils/carto';
 import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
+
 
 export default class LabsBblLookupComponent extends Component {
+  @tracked validBlock = false;
+  @tracked validLot = false;
+  @tracked boro = '';
+  @tracked block = '';
+  @tracked lot = '';
+  @tracked submitText = 'Go to Lot';
+  @tracked errorMessage = '';
+  @tracked closed = true;
+
+  get onSuccess() { return this.args.onSuccess || (() => {}); }
+
   constructor() {
     super(...arguments);
 
@@ -15,25 +28,6 @@ export default class LabsBblLookupComponent extends Component {
     ];
   };
 
-  classNames = ['bbl-lookup hide-for-print'];
-
-  validBlock = false;
-  validLot = false;
-
-  boro = '';
-
-  block = '';
-
-  lot = '';
-
-  submitText = 'Go to Lot';
-
-  errorMessage = '';
-
-  closed = true;
-
-  flyTo = null;
-
   @action
   validate() {
     const boro = this.boro;
@@ -43,6 +37,7 @@ export default class LabsBblLookupComponent extends Component {
     const validBoro = boro !== '';
     const validBlock =
       block !== '' && parseInt(block, 10) < 100000 && parseInt(block, 10) > 0;
+
     const validLot =
       lot !== '' && parseInt(lot, 10) < 10000 && parseInt(lot, 10) > 0;
 
@@ -54,7 +49,8 @@ export default class LabsBblLookupComponent extends Component {
   }
 
   @action
-  handleSubmit() {
+  handleSubmit(event) {
+    event.preventDefault();
     const {
       boro: { code },
       block,
@@ -71,9 +67,7 @@ export default class LabsBblLookupComponent extends Component {
       carto.SQL(SQL, 'geojson').then((response) => {
         if (response.features[0]) {
           this.errorMessage = '';
-          this.setProperties({
-            closed: true,
-          });
+          this.closed = true;
           this.onSuccess(response.features[0].geometry.coordinates, 16);
         } else {
           this.errorMessage = 'The Block does not exist.';
@@ -87,9 +81,7 @@ export default class LabsBblLookupComponent extends Component {
       carto.SQL(SQL, 'geojson').then((response) => {
         if (response.features[0]) {
           this.errorMessage = '';
-          this.setProperties({
-            closed: true,
-          });
+          this.closed = true;
           const bblFeature = response.features[0];
 
           this.onSuccess(
@@ -107,7 +99,7 @@ export default class LabsBblLookupComponent extends Component {
   @action
   setBorocode(option) {
     this.boro = option;
-    this.send('validate');
+    this.validate();
   };
 
   @action

@@ -1,4 +1,5 @@
-<span {{on 'click' (action 'toggle')}} class="bbl-lookup-toggle button tiny gray text-orange expanded no-margin" role="button">
+<div class="bbl-lookup hide-for-print">
+  <span {{on 'click' (action 'toggle')}} class="bbl-lookup-toggle button tiny gray text-orange expanded no-margin" role="button">
   {{#if this.closed}}
     <FaIcon @icon='chevron-down'/>
   {{else}}
@@ -45,3 +46,4 @@
 {{/unless}}
 
 {{yield}}
+</div>
