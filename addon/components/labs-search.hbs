@@ -4,7 +4,7 @@
     placeholder={{this.searchPlaceholder}} 
     class='map-search-input' 
     id="map-search-input"
-    value={{this.searchTerms}} 
+    @value={{this.searchTerms}} 
     {{on 'input' this.handleInput}} 
     {{on 'focus' this.handleFocusIn}} 
     {{on 'blur' this.handleFocusOut}} autocomplete="off"

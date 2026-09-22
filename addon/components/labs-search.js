@@ -53,27 +53,10 @@ export default class LabsSearchComponent extends Component {
     return this.debouncedResults.lastSuccessful?.value || [];
   }
 
-  // resultsCount = computed('results.value', function () {
-  //   const results = this.get('results.value');
-  //   if (results) return results.length;
-  //   return 0;
-  // });
-
   get resultsCount() {
     const resultsVal = this.debouncedResults.lastSuccessful?.value || [];
     return resultsVal.length;
   }
-
-  // endpoint =computed('helpers', 'host', 'route', 'searchTerms', function () {
-  //   const searchTerms = this.searchTerms;
-  //   const host = this.host;
-  //   const route = this.route;
-  //   const helpers = this.helpers
-  //     .map((string) => `helpers[]=${string}&`)
-  //     .join('');
-
-  //   return `${host}/${route}?${helpers}q=${searchTerms}`;
-  // });
 
   get endpoint() {
     const helpers = this.helpers.map((string) => `helpers[]=${string}&`).join('');
@@ -97,7 +80,6 @@ export default class LabsSearchComponent extends Component {
         setTimeout(resolve, 500)
       );
     
-
     try {
       const raw = yield fetch(URL);
       const resultList = yield raw.json();
